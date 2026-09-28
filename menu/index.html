@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0F172A">
+<meta name="robots" content="noindex">
+<title>Meniu</title>
+<style>
+:root { --ac: #3B82F6; --bg: #F6F7FB; --card: #fff; --t: #0F172A; --m: #64748B; --b: #E2E8F0; --ok: #059669; --warn: #B45309; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; background: var(--bg); color: var(--t); font-family: -apple-system, "Segoe UI", Roboto, system-ui, sans-serif; }
+body { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+.hero { background: linear-gradient(160deg, #0F172A, #1E293B 60%, color-mix(in srgb, var(--ac) 45%, #1E293B)); color: #fff; padding: 22px 18px 20px; }
+.hero .top { display: flex; align-items: center; gap: 12px; }
+.hero img { width: 52px; height: 52px; border-radius: 14px; object-fit: contain; background: rgba(255,255,255,.08); padding: 6px; }
+.hero h1 { margin: 0; font-size: 22px; line-height: 1.15; }
+.hero .tbl { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 13px; font-weight: 700; background: rgba(255,255,255,.14); padding: 4px 10px; border-radius: 99px; }
+.hero .msg { margin: 12px 0 0; font-size: 14px; opacity: .85; }
+.lang { margin-left: auto; background: rgba(255,255,255,.14); color: #fff; border: 0; border-radius: 10px; padding: 6px 10px; font-weight: 700; font-size: 13px; }
+.bar { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 10px 12px 8px; border-bottom: 1px solid var(--b); }
+.search { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--b); background: #fff; font-size: 16px; }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-top: 8px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; padding: 8px 14px; border-radius: 99px; border: 1px solid var(--b); background: #fff; font-weight: 650; font-size: 14px; color: var(--t); }
+.chip.on { background: var(--ac); border-color: var(--ac); color: #fff; }
+main { padding: 6px 12px 12px; }
+h2 { font-size: 17px; margin: 18px 4px 8px; display: flex; align-items: center; gap: 8px; }
+h2 i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.item { display: flex; gap: 12px; background: var(--card); border: 1px solid var(--b); border-radius: 16px; padding: 12px 14px; margin-bottom: 8px; }
+.item .im { width: 76px; height: 76px; border-radius: 12px; object-fit: cover; flex: none; background: #F1F5F9; }
+.item .x { flex: 1; min-width: 0; }
+.item .row { display: flex; gap: 10px; align-items: baseline; }
+.item b { font-size: 16px; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.item .p { font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.item .d { color: var(--m); font-size: 13.5px; margin-top: 4px; line-height: 1.35; }
+.item .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag { font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: #F1F5F9; color: var(--m); }
+.tag.al { background: #FEF3C7; color: var(--warn); }
+.empty { text-align: center; color: var(--m); padding: 40px 10px; }
+.actions { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px 12px calc(12px + env(safe-area-inset-bottom)); background: rgba(246,247,251,.94); backdrop-filter: blur(10px); border-top: 1px solid var(--b); }
+.btn { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; border-radius: 16px; border: 0; font-size: 16px; font-weight: 800; color: #fff; background: var(--ac); box-shadow: 0 6px 18px color-mix(in srgb, var(--ac) 35%, transparent); }
+.btn.alt { background: #0F172A; box-shadow: 0 6px 18px rgba(15,23,42,.25); }
+.btn:disabled { opacity: .55; }
+.btn svg { width: 22px; height: 22px; }
+.sheet-bg { position: fixed; inset: 0; z-index: 20; background: rgba(15,23,42,.45); display: flex; align-items: flex-end; }
+.sheet { width: 100%; background: #fff; border-radius: 22px 22px 0 0; padding: 20px 16px calc(18px + env(safe-area-inset-bottom)); animation: up .2s ease-out; }
+@keyframes up { from { transform: translateY(40px); opacity: 0; } }
+.sheet h3 { margin: 0 0 4px; font-size: 19px; }
+.sheet p { margin: 0 0 14px; color: var(--m); }
+.sheet .g { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opt { min-height: 64px; border-radius: 16px; border: 2px solid var(--b); background: #fff; font-size: 16px; font-weight: 800; color: var(--t); display: flex; align-items: center; justify-content: center; gap: 8px; }
+.cancel { width: 100%; margin-top: 10px; min-height: 48px; border: 0; background: transparent; color: var(--m); font-size: 15px; font-weight: 700; }
+.status { position: fixed; left: 12px; right: 12px; bottom: calc(92px + env(safe-area-inset-bottom)); z-index: 15; background: #0F172A; color: #fff; border-radius: 16px; padding: 14px 16px; display: flex; gap: 12px; align-items: center; box-shadow: 0 10px 30px rgba(15,23,42,.3); animation: up .2s; }
+.status.ok { background: var(--ok); }
+.status .sp { width: 22px; height: 22px; border-radius: 50%; border: 3px solid rgba(255,255,255,.35); border-top-color: #fff; animation: rot 1s linear infinite; flex: none; }
+@keyframes rot { to { transform: rotate(360deg); } }
+.status small { display: block; opacity: .85; font-weight: 500; }
+.center { min-height: 70vh; display: grid; place-items: center; text-align: center; padding: 30px; color: var(--m); }
+.foot { text-align: center; color: #94A3B8; font-size: 12px; padding: 16px 0 4px; }
+</style>
+</head>
+<body>
+<div id="app"><div class="center"><div class="status" style="position:static;background:#fff;color:#0F172A;box-shadow:none"><div class="sp" style="border-color:#E2E8F0;border-top-color:#3B82F6"></div><b>Se încarcă meniul…</b></div></div></div>
+<script>
+(function () {
+  'use strict';
+  // Adresa: …/menu/#d=<baza Firebase>&l=<locația>&t=<masa>   (prin internet)
+  //         …/menu/#t=<masa>                                  (servită de serverul local Rovia)
+  var q = new URLSearchParams(location.hash.slice(1));
+  var DB = q.get('d') ? decodeURIComponent(q.get('d')).replace(/\/+$/, '') : null;
+  if (DB && DB.indexOf('://') < 0) DB = 'https://' + DB;
+  var LOC = q.get('l'); var TOK = q.get('t');
+  var app = document.getElementById('app');
+  var lang = (localStorage.getItem('rovia.menu.lang') || (/^ro/i.test(navigator.language || 'ro') ? 'ro' : 'en'));
+  var T = {
+    ro: { table: 'Masa', search: 'Caută în meniu…', all: 'Tot meniul', call: 'Cheamă ospătarul', bill: 'Cere nota', how: 'Cum doriți să plătiți?', card: 'Card', cash: 'Numerar', cancel: 'Renunță',
+      sent: 'Am anunțat ospătarul', sentBill: 'Am cerut nota', wait: 'Vine imediat la masa dumneavoastră.', ack: ' vine la masa dumneavoastră', ackBill: ' vă aduce nota', again: 'Cererea a fost trimisă deja – ospătarul vine imediat.',
+      bad: 'Codul QR nu mai este valabil. Vă rugăm să cereți ajutorul ospătarului.', err: 'Nu s-a putut trimite. Verificați conexiunea la internet și încercați din nou.', none: 'Niciun produs găsit', allergens: 'Alergeni', offline: 'Meniul nu se poate încărca acum.', lang: 'EN' },
+    en: { table: 'Table', search: 'Search the menu…', all: 'Full menu', call: 'Call the waiter', bill: 'Ask for the bill', how: 'How would you like to pay?', card: 'Card', cash: 'Cash', cancel: 'Cancel',
+      sent: 'The waiter has been notified', sentBill: 'Bill requested', wait: 'Someone will be with you shortly.', ack: ' is coming to your table', ackBill: ' is bringing your bill', again: 'Already requested – the waiter is on the way.',
+      bad: 'This QR code is no longer valid. Please ask the staff for help.', err: 'Could not send. Please check your internet connection and try again.', none: 'Nothing found', allergens: 'Allergens', offline: 'The menu cannot be loaded right now.', lang: 'RO' },
+  };
+  var L = function (k) { return T[lang][k]; };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var st = { info: null, cats: [], items: [], table: null, cat: 'all', q: '', call: null, poll: null };
+  var ICON = {
+    bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
+    rc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2 1 .7V2l-1 .7-3-2-3 2-3-2-3 2-3-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>',
+    card: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>',
+    cash: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>',
+  };
+
+  function money(v) { return Number(v || 0).toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function getJ(url) { return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }); }
+
+  function load() {
+    if (!TOK) return fail(L('bad'));
+    var p = DB
+      ? Promise.all([getJ(DB + '/pub/' + LOC + '/info.json'), getJ(DB + '/pub/' + LOC + '/menu.json'), getJ(DB + '/pub/' + LOC + '/tables/' + TOK + '.json'), getJ(DB + '/calls/' + LOC + '/' + TOK + '.json').catch(function () { return null; })])
+        .then(function (r) { return { info: r[0], cats: (r[1] || {}).cats, items: (r[1] || {}).items, table: r[2], call: r[3] }; })
+      : getJ('/api/public/menu/' + encodeURIComponent(TOK)).then(function (m) { return { info: m.info, cats: m.cats, items: m.items, table: m.table, call: m.call }; });
+    p.then(function (m) {
+      if (!m.table || !m.info) return fail(L('bad'));
+      st.info = m.info; st.cats = toArr(m.cats); st.items = toArr(m.items); st.table = m.table;
+      if (m.info.ac) document.documentElement.style.setProperty('--ac', m.info.ac);
+      document.title = m.info.n + ' – ' + L('table') + ' ' + m.table.n;
+      render();
+      if (m.call && m.call.t && !m.call.st && Date.now() - m.call.t < 10 * 60000) { st.call = m.call; showStatus(); watch(); }
+    }).catch(function () { fail(L('offline')); });
+  }
+  function toArr(x) { return Array.isArray(x) ? x : x ? Object.keys(x).map(function (k) { return x[k]; }) : []; }
+  function fail(msg) { app.innerHTML = '<div class="center"><div><div style="font-size:42px">🍽️</div><p>' + esc(msg) + '</p></div></div>'; }
+
+  function render() {
+    var i = st.info;
+    app.innerHTML =
+      '<header class="hero"><div class="top">' + (i.logo ? '<img src="' + esc(i.logo) + '" alt="">' : '') +
+      '<div><h1>' + esc(i.n) + '</h1><div class="tbl">' + esc(L('table')) + ' ' + esc(st.table.n) + '</div></div>' +
+      '<button class="lang" id="lg">' + L('lang') + '</button></div>' + (i.msg ? '<p class="msg">' + esc(i.msg) + '</p>' : '') + '</header>' +
+      '<div class="bar"><input class="search" id="q" type="search" placeholder="' + esc(L('search')) + '" value="' + esc(st.q) + '"><div class="chips" id="chips"></div></div>' +
+      '<main id="list"></main><div class="foot">Rovia</div>' +
+      '<div class="actions"><button class="btn alt" id="bCall">' + ICON.bell + esc(L('call')) + '</button><button class="btn" id="bBill">' + ICON.rc + esc(L('bill')) + '</button></div><div id="stat"></div>';
+    document.getElementById('lg').onclick = function () { lang = lang === 'ro' ? 'en' : 'ro'; try { localStorage.setItem('rovia.menu.lang', lang); } catch (e) {} render(); showStatus(); };
+    document.getElementById('q').oninput = function (e) { st.q = e.target.value; list(); };
+    document.getElementById('bCall').onclick = function () { send('waiter'); };
+    document.getElementById('bBill').onclick = billSheet;
+    chips(); list();
+  }
+  function chips() {
+    var h = '<button class="chip' + (st.cat === 'all' ? ' on' : '') + '" data-c="all">' + esc(L('all')) + '</button>';
+    st.cats.forEach(function (c) { h += '<button class="chip' + (st.cat === c.id ? ' on' : '') + '" data-c="' + c.id + '">' + esc(c.n) + '</button>'; });
+    var el = document.getElementById('chips'); el.innerHTML = h;
+    el.querySelectorAll('.chip').forEach(function (b) { b.onclick = function () { st.cat = b.dataset.c === 'all' ? 'all' : Number(b.dataset.c); chips(); list(); window.scrollTo({ top: document.querySelector('.bar').offsetTop, behavior: 'smooth' }); }; });
+  }
+  function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function list() {
+    var q = norm(st.q); var out = '';
+    st.cats.forEach(function (c) {
+      if (st.cat !== 'all' && st.cat !== c.id) return;
+      var its = st.items.filter(function (p) { return p.c === c.id && (!q || norm(p.n + ' ' + (p.d || '') + ' ' + (p.g || '')).indexOf(q) >= 0); });
+      if (!its.length) return;
+      out += '<h2><i style="background:' + esc(c.co || 'var(--ac)') + '"></i>' + esc(c.n) + '</h2>';
+      its.forEach(function (p) {
+        out += '<div class="item">' + (p.i ? '<img class="im" loading="lazy" src="' + esc(p.i) + '" alt="">' : '') + '<div class="x"><div class="row"><b>' + esc(p.n) + '</b><span class="p">' + money(p.p) + ' ' + esc(st.info.cur || 'RON') + '</span></div>' +
+          (p.d ? '<div class="d">' + esc(p.d) + '</div>' : '') + (p.g && !p.d ? '<div class="d">' + esc(p.g) + '</div>' : '') +
+          ((p.w || p.a) ? '<div class="meta">' + (p.w ? '<span class="tag">' + esc(p.w) + '</span>' : '') + (p.a ? '<span class="tag al">' + esc(L('allergens')) + ': ' + esc(p.a) + '</span>' : '') + '</div>' : '') + '</div></div>';
+      });
+    });
+    document.getElementById('list').innerHTML = out || '<div class="empty">' + esc(L('none')) + '</div>';
+  }
+
+  function billSheet() {
+    var bg = document.createElement('div'); bg.className = 'sheet-bg';
+    bg.innerHTML = '<div class="sheet"><h3>' + esc(L('bill')) + '</h3><p>' + esc(L('how')) + '</p><div class="g"><button class="opt" data-p="card">' + ICON.card + esc(L('card')) + '</button><button class="opt" data-p="cash">' + ICON.cash + esc(L('cash')) + '</button></div><button class="cancel">' + esc(L('cancel')) + '</button></div>';
+    bg.onclick = function (e) { if (e.target === bg || e.target.classList.contains('cancel')) bg.remove(); };
+    bg.querySelectorAll('.opt').forEach(function (b) { b.onclick = function () { bg.remove(); send('bill', b.dataset.p); }; });
+    document.body.appendChild(bg);
+  }
+
+  function send(k, p) {
+    var body = { k: k }; if (p) body.p = p;
+    var btns = [document.getElementById('bCall'), document.getElementById('bBill')];
+    btns.forEach(function (b) { b.disabled = true; });
+    var req = DB
+      ? fetch(DB + '/calls/' + LOC + '/' + TOK + '.json', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ t: { '.sv': 'timestamp' } }, body)) })
+      : fetch('/api/public/call/' + encodeURIComponent(TOK), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    req.then(function (r) {
+      btns.forEach(function (b) { b.disabled = false; });
+      if (r.status === 401 || r.status === 403 || r.status === 429) { toast(L('again')); return; }
+      if (!r.ok) throw new Error();
+      st.call = { k: k, p: p, t: Date.now() }; showStatus(); watch();
+      if (navigator.vibrate) navigator.vibrate(60);
+    }).catch(function () { btns.forEach(function (b) { b.disabled = false; }); toast(L('err')); });
+  }
+  function toast(msg) { var s = document.getElementById('stat'); s.innerHTML = '<div class="status"><div>' + esc(msg) + '</div></div>'; setTimeout(function () { if (s.textContent === msg) s.innerHTML = ''; }, 5000); }
+  function showStatus() {
+    var s = document.getElementById('stat'); if (!s || !st.call) return;
+    var c = st.call;
+    if (c.st === 'ack') s.innerHTML = '<div class="status ok"><div style="font-size:22px">✓</div><div><b>' + esc(c.by || '') + esc(c.k === 'bill' ? L('ackBill') : L('ack')) + '</b></div></div>';
+    else s.innerHTML = '<div class="status"><div class="sp"></div><div><b>' + esc(c.k === 'bill' ? L('sentBill') : L('sent')) + '</b><small>' + esc(L('wait')) + '</small></div></div>';
+  }
+  function watch() {
+    clearInterval(st.poll); var started = Date.now();
+    st.poll = setInterval(function () {
+      if (Date.now() - started > 10 * 60000) { clearInterval(st.poll); var s = document.getElementById('stat'); if (s) s.innerHTML = ''; return; }
+      var u = DB ? DB + '/calls/' + LOC + '/' + TOK + '.json' : '/api/public/menu/' + encodeURIComponent(TOK);
+      getJ(u).then(function (x) {
+        var c = DB ? x : x && x.call;
+        if (c && c.st === 'ack') { st.call = Object.assign({}, st.call, { st: 'ack', by: c.by }); showStatus(); clearInterval(st.poll); if (navigator.vibrate) navigator.vibrate([80, 60, 80]); setTimeout(function () { var s = document.getElementById('stat'); if (s) s.innerHTML = ''; }, 20000); }
+      }).catch(function () {});
+    }, 3000);
+  }
+  load();
+})();
+</script>
+</body>
+</html>
