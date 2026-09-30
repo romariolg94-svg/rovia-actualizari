@@ -750,6 +750,18 @@ html.lite *, html.lite *::before, html.lite *::after { backdrop-filter: none !im
 .pay-confirm .pc-rest { font-size: 22px; font-weight: 800; }
 @media (max-width: 640px) { .pay-confirm .pc-method { font-size: 34px; } }
 
+/* ---------- Pe cameră (hotel) ---------- */
+.guest-card { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font: inherit; }
+.guest-card:hover:not(:disabled) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface-2)); }
+.guest-card:disabled { opacity: .6; cursor: not-allowed; }
+.guest-card b { font-size: 17px; }
+.room-pad { grid-template-columns: repeat(3, 1fr); }
+.room-pad button { min-height: 52px; }
+.room-pad button.ok { background: var(--accent); color: #fff; border-color: var(--accent); font-size: 17px; }
+.room-sel { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+.pay-confirm .pc-method.room { border-color: #a855f7; background: color-mix(in srgb, #a855f7 16%, var(--surface-solid)); font-size: 38px; }
+.pay-confirm .pc-method small { display: block; }
+
 /* Rovia Controlling – completări peste stilurile Rovia POS (theme.css + app.css) */
 body { user-select: text; }
 .ctl-center { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 18px; }
@@ -870,7 +882,7 @@ textarea.code { font-family: ui-monospace, Consolas, monospace; font-size: 12px;
 <div id="root"><div class="boot"><div class="spinner"></div></div></div>
 <div id="toasts" aria-live="polite"></div>
 <div id="modals"></div>
-<script>window.ROVIA_APP="owner";window.ROVIA_VERSION="1.9.19";window.ROVIA_LOGO="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMzAgOTYiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzNCODJGNiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzIyRDNFRSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI4OCIgaGVpZ2h0PSI4OCIgcng9IjIyIiBmaWxsPSIjMEIxMjI0IiBzdHJva2U9InVybCgjZykiIHN0cm9rZS13aWR0aD0iMi41Ii8+PHBhdGggZD0iTTI5IDc0VjIyaDI0YzExIDAgMTggNiAxOCAxNiAwIDctNCAxMy0xMCAxNWwxMiAyMUg2MUw1MSA1NmgtOHYxOHptMTQtMjloMTBjNCAwIDctMiA3LTZzLTMtNi03LTZINDN6IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iMTEwIiB5PSI1NCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLFJvYm90byxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjQwIiBmb250LXdlaWdodD0iODAwIiBsZXR0ZXItc3BhY2luZz0iMyIgZmlsbD0iI0U4RURGNSI+Uk9WSUE8L3RleHQ+PHRleHQgeD0iMTEyIiB5PSI3OCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLFJvYm90byxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iNi41IiBmaWxsPSIjOEJBM0M3Ij5TWVNURU0gwrcgUE9TPC90ZXh0Pjwvc3ZnPgo=";window.ROVIA_ICON="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzQjgyRjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyMkQzRUUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgcng9IjMwIiBmaWxsPSIjMEIxMjI0Ii8+PHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIHJ4PSIyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2cpIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0iTTQwIDk2VjMyaDMwYzE0IDAgMjMgOCAyMyAyMCAwIDktNSAxNi0xMyAxOWwxNSAyNUg3OUw2NiA3NEg1NXYyMnptMTUtMzVoMTRjNiAwIDktMyA5LThzLTMtOC05LThINTV6IiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+Cg==";</script>
+<script>window.ROVIA_APP="owner";window.ROVIA_VERSION="1.9.20";window.ROVIA_LOGO="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMzAgOTYiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzNCODJGNiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzIyRDNFRSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI4OCIgaGVpZ2h0PSI4OCIgcng9IjIyIiBmaWxsPSIjMEIxMjI0IiBzdHJva2U9InVybCgjZykiIHN0cm9rZS13aWR0aD0iMi41Ii8+PHBhdGggZD0iTTI5IDc0VjIyaDI0YzExIDAgMTggNiAxOCAxNiAwIDctNCAxMy0xMCAxNWwxMiAyMUg2MUw1MSA1NmgtOHYxOHptMTQtMjloMTBjNCAwIDctMiA3LTZzLTMtNi03LTZINDN6IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iMTEwIiB5PSI1NCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLFJvYm90byxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjQwIiBmb250LXdlaWdodD0iODAwIiBsZXR0ZXItc3BhY2luZz0iMyIgZmlsbD0iI0U4RURGNSI+Uk9WSUE8L3RleHQ+PHRleHQgeD0iMTEyIiB5PSI3OCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLFJvYm90byxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iNi41IiBmaWxsPSIjOEJBM0M3Ij5TWVNURU0gwrcgUE9TPC90ZXh0Pjwvc3ZnPgo=";window.ROVIA_ICON="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzQjgyRjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyMkQzRUUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgcng9IjMwIiBmaWxsPSIjMEIxMjI0Ii8+PHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIHJ4PSIyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2cpIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0iTTQwIDk2VjMyaDMwYzE0IDAgMjMgOCAyMyAyMCAwIDktNSAxNi0xMyAxOWwxNSAyNUg3OUw2NiA3NEg1NXYyMnptMTUtMzVoMTRjNiAwIDktMyA5LThzLTMtOC05LThINTV6IiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+Cg==";</script>
 <script>
 (() => {
 'use strict';
@@ -907,6 +919,8 @@ const P = {
   cash: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.8"/><path d="M6 9.5v5M18 9.5v5"/>',
   card: '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/>',
   voucher: '<path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a3 3 0 0 0 0 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a3 3 0 0 0 0-6z"/><path d="M13 5v14" stroke-dasharray="2 2"/>',
+  bed: '<path d="M3 18V6M3 14h18v4M21 14v-2.5a3 3 0 0 0-3-3h-7v5.5"/><circle cx="7" cy="11" r="2"/>',
+  key: '<circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M16 7l2.5 2.5M18.5 4.5 21 7"/>',
   bank: '<path d="M3 10h18L12 4zM5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>',
   percent: '<path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
   note: '<path d="M5 3h10l4 4v14H5z"/><path d="M14 3v5h5M8.5 12.5h7M8.5 16h5"/>',
