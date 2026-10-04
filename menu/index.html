@@ -142,7 +142,7 @@ h2 i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
       if (!its.length) return;
       out += '<h2><i style="background:' + esc(c.co || 'var(--ac)') + '"></i>' + esc(c.n) + '</h2>';
       its.forEach(function (p) {
-        out += '<div class="item">' + (p.i ? '<img class="im" loading="lazy" src="' + esc(p.i) + '" alt="">' : '') + '<div class="x"><div class="row"><b>' + esc(p.n) + '</b><span class="p">' + money(p.p) + ' ' + esc(st.info.cur || 'RON') + '</span></div>' +
+        out += '<div class="item">' + (p.i ? '<img class="im" loading="lazy" src="' + esc(p.i) + '" alt="">' : '') + '<div class="x"><div class="row"><b>' + esc(p.n) + '</b><span class="p">' + money(p.p) + ' ' + esc(st.info.cur || 'RON') + (p.u ? ' / ' + esc(p.u) : '') + '</span></div>' +
           (p.d ? '<div class="d">' + esc(p.d) + '</div>' : '') + (p.g && !p.d ? '<div class="d">' + esc(p.g) + '</div>' : '') +
           ((p.w || p.a) ? '<div class="meta">' + (p.w ? '<span class="tag">' + esc(p.w) + '</span>' : '') + (p.a ? '<span class="tag al">' + esc(L('allergens')) + ': ' + esc(p.a) + '</span>' : '') + '</div>' : '') + '</div></div>';
       });
