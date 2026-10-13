@@ -32,6 +32,8 @@ h2 i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .item .x { flex: 1; min-width: 0; }
 .item .row { display: flex; gap: 10px; align-items: baseline; }
 .item b { font-size: 16px; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.item.out { opacity: .5; }
+.item .ep { font-size: 11px; font-weight: 800; color: #fff; background: #dc2626; border-radius: 6px; padding: 2px 6px; margin-left: 6px; vertical-align: 2px; }
 .item .p { font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .item .d { color: var(--m); font-size: 13.5px; margin-top: 4px; line-height: 1.35; }
 .item .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
@@ -142,7 +144,7 @@ h2 i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
       if (!its.length) return;
       out += '<h2><i style="background:' + esc(c.co || 'var(--ac)') + '"></i>' + esc(c.n) + '</h2>';
       its.forEach(function (p) {
-        out += '<div class="item">' + (p.i ? '<img class="im" loading="lazy" src="' + esc(p.i) + '" alt="">' : '') + '<div class="x"><div class="row"><b>' + esc(p.n) + '</b><span class="p">' + money(p.p) + ' ' + esc(st.info.cur || 'RON') + (p.u ? ' / ' + esc(p.u) : '') + '</span></div>' +
+        out += '<div class="item' + (p.x ? ' out' : '') + '">' + (p.i ? '<img class="im" loading="lazy" src="' + esc(p.i) + '" alt="">' : '') + '<div class="x"><div class="row"><b>' + esc(p.n) + (p.x ? ' <span class="ep">Epuizat</span>' : '') + '</b><span class="p">' + money(p.p) + ' ' + esc(st.info.cur || 'RON') + (p.u ? ' / ' + esc(p.u) : '') + '</span></div>' +
           (p.d ? '<div class="d">' + esc(p.d) + '</div>' : '') + (p.g && !p.d ? '<div class="d">' + esc(p.g) + '</div>' : '') +
           ((p.w || p.a) ? '<div class="meta">' + (p.w ? '<span class="tag">' + esc(p.w) + '</span>' : '') + (p.a ? '<span class="tag al">' + esc(L('allergens')) + ': ' + esc(p.a) + '</span>' : '') + '</div>' : '') + '</div></div>';
       });
