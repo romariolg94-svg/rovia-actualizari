@@ -1013,13 +1013,34 @@ textarea.code { font-family: ui-monospace, Consolas, monospace; font-size: 12px;
 .mon-bar input[type=search], .mon-bar .input:not([type]) { min-width: 240px; flex: 0 1 340px; }
 .nav-sep { height: 1px; background: var(--border); margin: 6px 8px; }
 
+/* ---------------- Rovia Dispecerat (managerul de livrări central) */
+.dsp.dl-page { height: calc(100vh - 150px); }
+.dsp-loc { display: inline-block; flex: 0 1 auto; min-width: 84px; padding: 1px 8px; border-radius: 999px; color: #0b1220; font-size: 11.5px; font-weight: 800; max-width: 130px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dsp-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+.dsp-locs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.dsp-locchip { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface-solid); cursor: pointer; font-size: 13px; }
+.dsp-locchip .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+.dsp-locchip.active { border-color: var(--c); box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 35%, transparent); }
+.dsp-phone { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.dsp-prods { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; max-height: 280px; overflow: auto; }
+.dsp-prod { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); text-align: left; cursor: pointer; font: inherit; font-size: 13px; }
+.dsp-prod span { flex: 1; min-width: 0; }
+.dsp-prod b { white-space: nowrap; }
+.dsp-cart { display: flex; flex-direction: column; gap: 6px; }
+.dsp-line { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+.dsp-line .step { display: inline-flex; align-items: center; gap: 4px; }
+table.tbl { width: 100%; border-collapse: collapse; }
+table.tbl th, table.tbl td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+table.tbl th { color: var(--text-2); font-weight: 650; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }
+@media (max-width: 900px) { .dsp-phone { grid-template-columns: 1fr; } .dsp.dl-page { height: auto; } }
+
 </style>
 </head>
 <body>
 <div id="root"><div class="boot"><div class="spinner"></div></div></div>
 <div id="toasts" aria-live="polite"></div>
 <div id="modals"></div>
-<script>window.ROVIA_APP="owner";window.ROVIA_VERSION="1.9.31";window.ROVIA_LOGO="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMzAgOTYiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzNCODJGNiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzIyRDNFRSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI4OCIgaGVpZ2h0PSI4OCIgcng9IjIyIiBmaWxsPSIjMEIxMjI0IiBzdHJva2U9InVybCgjZykiIHN0cm9rZS13aWR0aD0iMi41Ii8+PHBhdGggZD0iTTI5IDc0VjIyaDI0YzExIDAgMTggNiAxOCAxNiAwIDctNCAxMy0xMCAxNWwxMiAyMUg2MUw1MSA1NmgtOHYxOHptMTQtMjloMTBjNCAwIDctMiA3LTZzLTMtNi03LTZINDN6IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iMTEwIiB5PSI1NCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLFJvYm90byxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjQwIiBmb250LXdlaWdodD0iODAwIiBsZXR0ZXItc3BhY2luZz0iMyIgZmlsbD0iI0U4RURGNSI+Uk9WSUE8L3RleHQ+PHRleHQgeD0iMTEyIiB5PSI3OCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLFJvYm90byxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iNi41IiBmaWxsPSIjOEJBM0M3Ij5TWVNURU0gwrcgUE9TPC90ZXh0Pjwvc3ZnPgo=";window.ROVIA_ICON="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzQjgyRjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyMkQzRUUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgcng9IjMwIiBmaWxsPSIjMEIxMjI0Ii8+PHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIHJ4PSIyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2cpIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0iTTQwIDk2VjMyaDMwYzE0IDAgMjMgOCAyMyAyMCAwIDktNSAxNi0xMyAxOWwxNSAyNUg3OUw2NiA3NEg1NXYyMnptMTUtMzVoMTRjNiAwIDktMyA5LThzLTMtOC05LThINTV6IiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+Cg==";</script>
+<script>window.ROVIA_APP="owner";window.ROVIA_VERSION="1.9.32";window.ROVIA_LOGO="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMzAgOTYiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzNCODJGNiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzIyRDNFRSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI4OCIgaGVpZ2h0PSI4OCIgcng9IjIyIiBmaWxsPSIjMEIxMjI0IiBzdHJva2U9InVybCgjZykiIHN0cm9rZS13aWR0aD0iMi41Ii8+PHBhdGggZD0iTTI5IDc0VjIyaDI0YzExIDAgMTggNiAxOCAxNiAwIDctNCAxMy0xMCAxNWwxMiAyMUg2MUw1MSA1NmgtOHYxOHptMTQtMjloMTBjNCAwIDctMiA3LTZzLTMtNi03LTZINDN6IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iMTEwIiB5PSI1NCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLFJvYm90byxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjQwIiBmb250LXdlaWdodD0iODAwIiBsZXR0ZXItc3BhY2luZz0iMyIgZmlsbD0iI0U4RURGNSI+Uk9WSUE8L3RleHQ+PHRleHQgeD0iMTEyIiB5PSI3OCIgZm9udC1mYW1pbHk9IlNlZ29lIFVJLFJvYm90byxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iNi41IiBmaWxsPSIjOEJBM0M3Ij5TWVNURU0gwrcgUE9TPC90ZXh0Pjwvc3ZnPgo=";window.ROVIA_ICON="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzQjgyRjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyMkQzRUUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgcng9IjMwIiBmaWxsPSIjMEIxMjI0Ii8+PHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIHJ4PSIyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2cpIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0iTTQwIDk2VjMyaDMwYzE0IDAgMjMgOCAyMyAyMCAwIDktNSAxNi0xMyAxOWwxNSAyNUg3OUw2NiA3NEg1NXYyMnptMTUtMzVoMTRjNiAwIDktMyA5LThzLTMtOC05LThINTV6IiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+Cg==";</script>
 <script>
 (() => {
 'use strict';
@@ -2123,7 +2144,7 @@ return { LOC_NAV, openReceipt, VIEWS };
 // ---- client/controlling/js/rules.js
 __m[9] = (() => {
 // Generat automat din firebase/database.rules.json de tools/build-controlling.js – nu editați.
-const RULES = "{\n  \"rules\": {\n    \".read\": false,\n    \".write\": false,\n    \"users\": {\n      \".read\": \"auth != null && root.child('users/' + auth.uid + '/role').val() === 'admin' && root.child('users/' + auth.uid + '/active').val() !== false\",\n      \".write\": \"auth != null && root.child('users/' + auth.uid + '/role').val() === 'admin' && root.child('users/' + auth.uid + '/active').val() !== false\",\n      \"$uid\": {\n        \".read\": \"auth != null && auth.uid === $uid\",\n        \".write\": \"auth != null && auth.uid === $uid && !root.child('users').exists() && newData.child('role').val() === 'admin'\"\n      }\n    },\n    \"brand\": {\n      \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid).exists()\",\n      \"$loc\": {\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"meta\": {\n      \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || root.child('users/' + auth.uid + '/all').val() === true)\",\n      \"$loc\": {\n        \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/locations/' + $loc).val() === true\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"data\": {\n      \"$loc\": {\n        \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() !== 'monitor' && (root.child('users/' + auth.uid + '/role').val() === 'admin' || root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"rc\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'monitor' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\"\n        },\n        \"ri\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'monitor' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\"\n        },\n        \"days\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'monitor' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\"\n        },\n        \"dk\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'monitor' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\"\n        }\n      }\n    },\n    \"live\": {\n      \"$loc\": {\n        \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || ((root.child('users/' + auth.uid + '/role').val() === 'monitor' || root.child('users/' + auth.uid + '/role').val() === 'controller') && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"pub\": {\n      \"$loc\": {\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"info\": {\n          \".read\": true\n        },\n        \"menu\": {\n          \".read\": true\n        },\n        \"tables\": {\n          \"$tok\": {\n            \".read\": true\n          }\n        },\n        \"shop\": {\n          \".read\": true\n        },\n        \"img\": {\n          \".read\": true\n        }\n      }\n    },\n    \"calls\": {\n      \"$loc\": {\n        \".read\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$tok\": {\n          \".read\": true,\n          \".write\": \"root.child('pub/' + $loc + '/tables/' + $tok).exists() && newData.exists() && (!data.exists() || data.child('t').val() < now - 15000)\",\n          \".validate\": \"newData.hasChildren(['k', 't'])\",\n          \"k\": {\n            \".validate\": \"newData.val() === 'waiter' || newData.val() === 'bill'\"\n          },\n          \"p\": {\n            \".validate\": \"newData.val() === 'card' || newData.val() === 'cash'\"\n          },\n          \"t\": {\n            \".validate\": \"(auth != null && auth.uid === $loc) || newData.val() === now\"\n          },\n          \"st\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"by\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"at\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        }\n      }\n    },\n    \"cmd\": {\n      \"$loc\": {\n        \".read\": \"(auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false) || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || (root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true))))\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$id\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || (root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))\",\n          \".write\": \"!data.exists() && newData.exists() && auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || (root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))\",\n          \".validate\": \"newData.hasChildren(['op', 'by', 't'])\",\n          \"op\": {\n            \".validate\": \"newData.isString() && newData.val().matches(/^(product\\\\.(create|update|delete|restore)|category\\\\.create)$/)\"\n          },\n          \"by\": {\n            \".validate\": \"newData.val() === auth.uid || (auth.uid === $loc && newData.val() === data.val())\"\n          },\n          \"name\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 100\"\n          },\n          \"t\": {\n            \".validate\": \"newData.val() === now || (auth.uid === $loc && newData.val() === data.val())\"\n          },\n          \"d\": {\n            \".validate\": \"newData.hasChildren() || !newData.exists()\"\n          },\n          \"st\": {\n            \".validate\": \"auth.uid === $loc\"\n          },\n          \"msg\": {\n            \".validate\": \"auth.uid === $loc\"\n          },\n          \"res\": {\n            \".validate\": \"auth.uid === $loc\"\n          },\n          \"done\": {\n            \".validate\": \"auth.uid === $loc\"\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        }\n      }\n    },\n    \"web\": {\n      \"$loc\": {\n        \".read\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$id\": {\n          \".read\": true,\n          \".write\": \"!data.exists() && newData.exists() && $id.matches(/^[A-Za-z0-9_-]{16,40}$/) && root.child('pub/' + $loc + '/shop/s/on').val() === true && root.child('sitectl/' + $loc + '/on').val() !== false && (!newData.child('u').exists() || (auth != null && newData.child('u').val() === auth.uid))\",\n          \".validate\": \"newData.hasChildren(['c', 'i', 't'])\",\n          \"c\": {\n            \".validate\": \"newData.hasChildren(['n', 'ph'])\",\n            \"n\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 80\"\n            },\n            \"ph\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 20\"\n            },\n            \"a\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"z\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 60\"\n            },\n            \"no\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"pk\": {\n              \".validate\": \"newData.isBoolean()\"\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          },\n          \"i\": {\n            \"$n\": {\n              \".validate\": \"newData.hasChildren(['p', 'q'])\",\n              \"p\": {\n                \".validate\": \"newData.isNumber()\"\n              },\n              \"q\": {\n                \".validate\": \"newData.isNumber() && newData.val() >= 1 && newData.val() <= 50\"\n              },\n              \"n\": {\n                \".validate\": \"newData.isString() && newData.val().length <= 120\"\n              },\n              \"m\": {\n                \"$k\": {\n                  \".validate\": \"newData.isNumber()\"\n                }\n              },\n              \"$other\": {\n                \".validate\": false\n              }\n            }\n          },\n          \"pay\": {\n            \".validate\": \"newData.val() === 'cash' || newData.val() === 'card'\"\n          },\n          \"ch\": {\n            \".validate\": \"newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000\"\n          },\n          \"w\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 16\"\n          },\n          \"tot\": {\n            \".validate\": \"newData.isNumber()\"\n          },\n          \"t\": {\n            \".validate\": \"(auth != null && auth.uid === $loc) || newData.val() === now\"\n          },\n          \"st\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"no\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"eta\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"drv\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"msg\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"at\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"u\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 128\"\n          },\n          \"g\": {\n            \".validate\": \"newData.hasChildren(['id', 'l', 'p'])\",\n            \"id\": {\n              \".validate\": \"newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]{16,40}$/)\"\n            },\n            \"l\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 64\"\n            },\n            \"s\": {\n              \".validate\": \"newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000\"\n            },\n            \"p\": {\n              \"$k\": {\n                \".validate\": \"newData.isString() && newData.val().length <= 40\"\n              }\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        }\n      }\n    },\n    \"crew\": {\n      \"$loc\": {\n        \".read\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$uid\": {\n          \".read\": \"auth != null && auth.uid === $uid\"\n        }\n      }\n    },\n    \"drv\": {\n      \"$loc\": {\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$uid\": {\n          \".read\": \"auth != null && auth.uid === $uid && root.child('crew/' + $loc + '/' + $uid + '/a').val() === true\"\n        }\n      }\n    },\n    \"drvs\": {\n      \"$loc\": {\n        \".read\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$uid\": {\n          \"$oid\": {\n            \".write\": \"auth != null && auth.uid === $uid && root.child('crew/' + $loc + '/' + $uid + '/a').val() === true && root.child('drv/' + $loc + '/' + $uid + '/' + $oid).exists()\",\n            \".validate\": \"newData.hasChildren(['st', 't'])\",\n            \"st\": {\n              \".validate\": \"newData.val() === 'picked' || newData.val() === 'pickup' || newData.val() === 'delivered' || newData.val() === 'failed'\"\n            },\n            \"t\": {\n              \".validate\": \"newData.val() === now || (auth != null && auth.uid === $loc)\"\n            },\n            \"r\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 200\"\n            },\n            \"l\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 64\"\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          }\n        }\n      }\n    },\n    \"sites\": {\n      \".read\": true,\n      \"$loc\": {\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"sitectl\": {\n      \".read\": true,\n      \"$loc\": {\n        \".write\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || (root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))\",\n        \"on\": {\n          \".validate\": \"newData.isBoolean()\"\n        },\n        \"dl\": {\n          \".validate\": \"newData.isBoolean()\"\n        },\n        \"pk\": {\n          \".validate\": \"newData.isBoolean()\"\n        },\n        \"$other\": {\n          \".validate\": false\n        }\n      }\n    },\n    \"gx\": {\n      \"$to\": {\n        \".read\": \"auth != null && auth.uid === $to && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$gid\": {\n          \".write\": \"auth != null && auth.uid === $to && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false && !newData.exists()\",\n          \"$from\": {\n            \".write\": \"auth != null && auth.uid === $from && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + $to + '/role').val() === 'location'\"\n          }\n        }\n      }\n    },\n    \"cust\": {\n      \"$uid\": {\n        \".read\": \"auth != null && auth.uid === $uid\",\n        \".write\": \"auth != null && auth.uid === $uid\",\n        \"p\": {\n          \"n\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 80\"\n          },\n          \"ph\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 20\"\n          },\n          \"em\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 120\"\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        },\n        \"a\": {\n          \"$k\": {\n            \".validate\": \"newData.hasChildren(['a'])\",\n            \"a\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"z\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 60\"\n            },\n            \"t\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 40\"\n            },\n            \"no\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          }\n        },\n        \"o\": {\n          \"$k\": {\n            \"t\": {\n              \".validate\": \"newData.isNumber()\"\n            },\n            \"tot\": {\n              \".validate\": \"newData.isNumber()\"\n            },\n            \"pk\": {\n              \".validate\": \"newData.isBoolean()\"\n            },\n            \"n\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"p\": {\n              \"$l\": {\n                \".validate\": \"newData.isString() && newData.val().length <= 40\"\n              }\n            },\n            \"ln\": {\n              \"$l\": {\n                \".validate\": \"newData.isString() && newData.val().length <= 80\"\n              }\n            },\n            \"l\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 64\"\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          }\n        },\n        \"$other\": {\n          \".validate\": false\n        }\n      }\n    }\n  }\n}";
+const RULES = "{\n  \"rules\": {\n    \".read\": false,\n    \".write\": false,\n    \"users\": {\n      \".read\": \"auth != null && root.child('users/' + auth.uid + '/role').val() === 'admin' && root.child('users/' + auth.uid + '/active').val() !== false\",\n      \".write\": \"auth != null && root.child('users/' + auth.uid + '/role').val() === 'admin' && root.child('users/' + auth.uid + '/active').val() !== false\",\n      \"$uid\": {\n        \".read\": \"auth != null && auth.uid === $uid\",\n        \".write\": \"auth != null && auth.uid === $uid && !root.child('users').exists() && newData.child('role').val() === 'admin'\"\n      }\n    },\n    \"brand\": {\n      \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid).exists()\",\n      \"$loc\": {\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"meta\": {\n      \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || root.child('users/' + auth.uid + '/all').val() === true)\",\n      \"$loc\": {\n        \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/locations/' + $loc).val() === true\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"data\": {\n      \"$loc\": {\n        \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() !== 'monitor' && (root.child('users/' + auth.uid + '/role').val() === 'admin' || root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"rc\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'monitor' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\"\n        },\n        \"ri\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'monitor' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\"\n        },\n        \"days\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'monitor' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\"\n        },\n        \"dk\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'monitor' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)\"\n        }\n      }\n    },\n    \"live\": {\n      \"$loc\": {\n        \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || ((root.child('users/' + auth.uid + '/role').val() === 'monitor' || root.child('users/' + auth.uid + '/role').val() === 'controller') && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"pub\": {\n      \"$loc\": {\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"info\": {\n          \".read\": true\n        },\n        \"menu\": {\n          \".read\": true\n        },\n        \"tables\": {\n          \"$tok\": {\n            \".read\": true\n          }\n        },\n        \"shop\": {\n          \".read\": true\n        },\n        \"img\": {\n          \".read\": true\n        }\n      }\n    },\n    \"calls\": {\n      \"$loc\": {\n        \".read\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$tok\": {\n          \".read\": true,\n          \".write\": \"root.child('pub/' + $loc + '/tables/' + $tok).exists() && newData.exists() && (!data.exists() || data.child('t').val() < now - 15000)\",\n          \".validate\": \"newData.hasChildren(['k', 't'])\",\n          \"k\": {\n            \".validate\": \"newData.val() === 'waiter' || newData.val() === 'bill'\"\n          },\n          \"p\": {\n            \".validate\": \"newData.val() === 'card' || newData.val() === 'cash'\"\n          },\n          \"t\": {\n            \".validate\": \"(auth != null && auth.uid === $loc) || newData.val() === now\"\n          },\n          \"st\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"by\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"at\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        }\n      }\n    },\n    \"cmd\": {\n      \"$loc\": {\n        \".read\": \"(auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false) || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || (root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))) || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true))\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$id\": {\n          \".read\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || (root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true))) || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true))\",\n          \".write\": \"!data.exists() && newData.exists() && ((auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'admin') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)) || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))\",\n          \".validate\": \"newData.hasChildren(['op', 'by', 't'])\",\n          \"op\": {\n            \".validate\": \"newData.isString() && ((newData.val().matches(/^(product\\\\.(create|update|delete|restore)|category\\\\.create)$/) && ((auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'admin') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))) || (newData.val().matches(/^dlv\\\\.(accept|reject|ready|assign|dispatch|delivered|failed|retry|return|open|settle|phone)$/) && ((auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'admin') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))))\"\n          },\n          \"by\": {\n            \".validate\": \"newData.val() === auth.uid || (auth.uid === $loc && newData.val() === data.val())\"\n          },\n          \"name\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 100\"\n          },\n          \"t\": {\n            \".validate\": \"newData.val() === now || (auth.uid === $loc && newData.val() === data.val())\"\n          },\n          \"d\": {\n            \".validate\": \"newData.hasChildren() || !newData.exists()\"\n          },\n          \"st\": {\n            \".validate\": \"auth.uid === $loc\"\n          },\n          \"msg\": {\n            \".validate\": \"auth.uid === $loc\"\n          },\n          \"res\": {\n            \".validate\": \"auth.uid === $loc\"\n          },\n          \"done\": {\n            \".validate\": \"auth.uid === $loc\"\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        }\n      }\n    },\n    \"web\": {\n      \"$loc\": {\n        \".read\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$id\": {\n          \".read\": true,\n          \".write\": \"!data.exists() && newData.exists() && $id.matches(/^[A-Za-z0-9_-]{16,40}$/) && root.child('pub/' + $loc + '/shop/s/on').val() === true && root.child('sitectl/' + $loc + '/on').val() !== false && (!newData.child('u').exists() || (auth != null && newData.child('u').val() === auth.uid))\",\n          \".validate\": \"newData.hasChildren(['c', 'i', 't'])\",\n          \"c\": {\n            \".validate\": \"newData.hasChildren(['n', 'ph'])\",\n            \"n\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 80\"\n            },\n            \"ph\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 20\"\n            },\n            \"a\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"z\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 60\"\n            },\n            \"no\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"pk\": {\n              \".validate\": \"newData.isBoolean()\"\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          },\n          \"i\": {\n            \"$n\": {\n              \".validate\": \"newData.hasChildren(['p', 'q'])\",\n              \"p\": {\n                \".validate\": \"newData.isNumber()\"\n              },\n              \"q\": {\n                \".validate\": \"newData.isNumber() && newData.val() >= 1 && newData.val() <= 50\"\n              },\n              \"n\": {\n                \".validate\": \"newData.isString() && newData.val().length <= 120\"\n              },\n              \"m\": {\n                \"$k\": {\n                  \".validate\": \"newData.isNumber()\"\n                }\n              },\n              \"$other\": {\n                \".validate\": false\n              }\n            }\n          },\n          \"pay\": {\n            \".validate\": \"newData.val() === 'cash' || newData.val() === 'card'\"\n          },\n          \"ch\": {\n            \".validate\": \"newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000\"\n          },\n          \"w\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 16\"\n          },\n          \"tot\": {\n            \".validate\": \"newData.isNumber()\"\n          },\n          \"t\": {\n            \".validate\": \"(auth != null && auth.uid === $loc) || newData.val() === now\"\n          },\n          \"st\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"no\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"eta\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"drv\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"msg\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"at\": {\n            \".validate\": \"auth != null && auth.uid === $loc\"\n          },\n          \"u\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 128\"\n          },\n          \"g\": {\n            \".validate\": \"newData.hasChildren(['id', 'l', 'p'])\",\n            \"id\": {\n              \".validate\": \"newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]{16,40}$/)\"\n            },\n            \"l\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 64\"\n            },\n            \"s\": {\n              \".validate\": \"newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000\"\n            },\n            \"p\": {\n              \"$k\": {\n                \".validate\": \"newData.isString() && newData.val().length <= 40\"\n              }\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        }\n      }\n    },\n    \"crew\": {\n      \"$loc\": {\n        \".read\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$uid\": {\n          \".read\": \"auth != null && auth.uid === $uid\"\n        }\n      }\n    },\n    \"drv\": {\n      \"$loc\": {\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$uid\": {\n          \".read\": \"auth != null && auth.uid === $uid && root.child('crew/' + $loc + '/' + $uid + '/a').val() === true\"\n        }\n      },\n      \"_pool\": {\n        \"$uid\": {\n          \".read\": \"auth != null && auth.uid === $uid && root.child('pool/drivers/' + $uid + '/a').val() === true\",\n          \"$card\": {\n            \".write\": \"(auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'location') && $card.beginsWith(auth.uid + '~')\"\n          }\n        }\n      }\n    },\n    \"drvs\": {\n      \"$loc\": {\n        \".read\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$uid\": {\n          \"$oid\": {\n            \".write\": \"(auth != null && auth.uid === $uid && root.child('crew/' + $loc + '/' + $uid + '/a').val() === true && root.child('drv/' + $loc + '/' + $uid + '/' + $oid).exists()) || (auth != null && auth.uid === $uid && root.child('pool/drivers/' + $uid + '/a').val() === true && root.child('drv/_pool/' + $uid + '/' + $loc + '~' + $oid).exists())\",\n            \".validate\": \"newData.hasChildren(['st', 't'])\",\n            \"st\": {\n              \".validate\": \"newData.val() === 'picked' || newData.val() === 'pickup' || newData.val() === 'delivered' || newData.val() === 'failed'\"\n            },\n            \"t\": {\n              \".validate\": \"newData.val() === now || (auth != null && auth.uid === $loc)\"\n            },\n            \"r\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 200\"\n            },\n            \"l\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 64\"\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          }\n        }\n      }\n    },\n    \"sites\": {\n      \".read\": true,\n      \"$loc\": {\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"sitectl\": {\n      \".read\": true,\n      \"$loc\": {\n        \".write\": \"auth != null && root.child('users/' + auth.uid + '/active').val() !== false && (root.child('users/' + auth.uid + '/role').val() === 'admin' || (root.child('users/' + auth.uid + '/role').val() === 'controller' && root.child('users/' + auth.uid + '/write').val() === true && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true)))\",\n        \"on\": {\n          \".validate\": \"newData.isBoolean()\"\n        },\n        \"dl\": {\n          \".validate\": \"newData.isBoolean()\"\n        },\n        \"pk\": {\n          \".validate\": \"newData.isBoolean()\"\n        },\n        \"$other\": {\n          \".validate\": false\n        }\n      }\n    },\n    \"gx\": {\n      \"$to\": {\n        \".read\": \"auth != null && auth.uid === $to && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\",\n        \"$gid\": {\n          \".write\": \"auth != null && auth.uid === $to && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false && !newData.exists()\",\n          \"$from\": {\n            \".write\": \"auth != null && auth.uid === $from && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + $to + '/role').val() === 'location'\"\n          }\n        }\n      }\n    },\n    \"cust\": {\n      \"$uid\": {\n        \".read\": \"auth != null && auth.uid === $uid\",\n        \".write\": \"auth != null && auth.uid === $uid\",\n        \"p\": {\n          \"n\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 80\"\n          },\n          \"ph\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 20\"\n          },\n          \"em\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 120\"\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        },\n        \"a\": {\n          \"$k\": {\n            \".validate\": \"newData.hasChildren(['a'])\",\n            \"a\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"z\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 60\"\n            },\n            \"t\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 40\"\n            },\n            \"no\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          }\n        },\n        \"o\": {\n          \"$k\": {\n            \"t\": {\n              \".validate\": \"newData.isNumber()\"\n            },\n            \"tot\": {\n              \".validate\": \"newData.isNumber()\"\n            },\n            \"pk\": {\n              \".validate\": \"newData.isBoolean()\"\n            },\n            \"n\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 300\"\n            },\n            \"p\": {\n              \"$l\": {\n                \".validate\": \"newData.isString() && newData.val().length <= 40\"\n              }\n            },\n            \"ln\": {\n              \"$l\": {\n                \".validate\": \"newData.isString() && newData.val().length <= 80\"\n              }\n            },\n            \"l\": {\n              \".validate\": \"newData.isString() && newData.val().length <= 64\"\n            },\n            \"$other\": {\n              \".validate\": false\n            }\n          }\n        },\n        \"$other\": {\n          \".validate\": false\n        }\n      }\n    },\n    \"dsp\": {\n      \"$loc\": {\n        \".read\": \"(auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'admin') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch' && (root.child('users/' + auth.uid + '/all').val() === true || root.child('users/' + auth.uid + '/locations/' + $loc).val() === true))\",\n        \".write\": \"auth != null && auth.uid === $loc && root.child('users/' + auth.uid + '/role').val() === 'location' && root.child('users/' + auth.uid + '/active').val() !== false\"\n      }\n    },\n    \"pool\": {\n      \"drivers\": {\n        \".read\": \"(auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'admin') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'location')\",\n        \".write\": \"(auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'admin') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch')\",\n        \"$uid\": {\n          \".read\": \"auth != null && auth.uid === $uid\",\n          \".validate\": \"newData.hasChildren(['n', 'a'])\",\n          \"n\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 80\"\n          },\n          \"ph\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 20\"\n          },\n          \"em\": {\n            \".validate\": \"newData.isString() && newData.val().length <= 120\"\n          },\n          \"a\": {\n            \".validate\": \"newData.isBoolean()\"\n          },\n          \"at\": {\n            \".validate\": \"newData.isNumber()\"\n          },\n          \"$other\": {\n            \".validate\": false\n          }\n        }\n      },\n      \"codes\": {\n        \".read\": \"(auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'admin') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch')\",\n        \".write\": \"(auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'admin') || (auth != null && root.child('users/' + auth.uid + '/active').val() !== false && root.child('users/' + auth.uid + '/role').val() === 'dispatch')\"\n      }\n    }\n  }\n}";
 
 return { RULES };
 })();
@@ -2178,7 +2199,7 @@ async function adminPage(app) {
     const name = input({ value: u.name || '', placeholder: 'Nume și prenume' });
     const email = input({ value: u.email || '', placeholder: 'nume@firma.ro', type: 'email', disabled: !isNew });
     const pass = input({ value: isNew ? randomPassword(10) : '', placeholder: 'Parolă (min. 6 caractere)' });
-    const role = select([['controller', 'Controlling (vizualizare; opțional modificarea produselor)'], ['owner', 'Proprietar – linkul Rovia Proprietar: locațiile lui în timp real (doar citire)'], ['monitor', 'Monitorizare video – aplicația Rovia Monitor (timp real + rapoarte de vânzări; fără Z, facturi, stocuri)'], ['admin', 'Administrator (și gestionează utilizatorii)']], u.owner ? 'owner' : u.role);
+    const role = select([['controller', 'Controlling (vizualizare; opțional modificarea produselor)'], ['owner', 'Proprietar – linkul Rovia Proprietar: locațiile lui în timp real (doar citire)'], ['monitor', 'Monitorizare video – aplicația Rovia Monitor (timp real + rapoarte de vânzări; fără Z, facturi, stocuri)'], ['dispatch', 'Manager livrări – aplicația Rovia Dispecerat (comenzile de livrare ale locațiilor, alocă șoferii, comenzi telefonice)'], ['admin', 'Administrator (și gestionează utilizatorii)']], u.owner ? 'owner' : u.role);
     let all = u.all !== false && (u.all || !Object.keys(u.locations || {}).length);
     const chosen = new Set(Object.keys(u.locations || {}));
     const list = h('div.col.gap-s');
@@ -2201,7 +2222,7 @@ async function adminPage(app) {
           if (!/^\S+@\S+\.\S+$/.test(email.value.trim())) throw new Error('Adresa de e-mail nu este validă');
           const acc = await fb.createAccount(email.value.trim(), pass.value);
           await fb.put(`users/${acc.uid}`, { ...rec, email: acc.email, created: new Date().toISOString() });
-          showInvite({ name: rec.name, email: acc.email, password: pass.value, owner });
+          showInvite({ name: rec.name, email: acc.email, password: pass.value, owner, role: rv });
         } else {
           await fb.patch(`users/${u.uid}`, { name: rec.name, role: rec.role, owner: rec.owner, all: rec.all, active: rec.active, write: rec.write });
           await fb.put(`users/${u.uid}/locations`, rec.locations);
@@ -2211,14 +2232,16 @@ async function adminPage(app) {
       } }],
     });
   }
-  function showInvite({ name, email, password, owner }) {
+  function showInvite({ name, email, password, owner, role }) {
     if (owner) {
       const ol = ownerLink(meta);
       const msg = `Bună, ${name}!\nAi primit acces la Rovia Proprietar – vânzările locațiilor tale în timp real.\n${ol ? `Deschide (pe telefon sau calculator): ${ol}\n` : 'Linkul apare după prima publicare din generator (GitHub Pages).\n'}E-mail: ${email}\nParolă: ${password}`;
       return modal({ title: 'Proprietar creat', size: 'sm', body: h('div.col', h('div', 'Trimiteți proprietarului mesajul de mai jos (conține datele de acces):'), codeBox(msg, 'Copiază mesajul')) });
     }
     const link = inviteLink();
-    const msg = `Bună, ${name}!\nAi primit acces la Rovia Controlling.\n${link ? `Deschide: ${link}\n` : `Instalează aplicația Rovia Controlling și introdu codul de configurare:\n${fb.configCode()}\n`}E-mail: ${email}\nParolă: ${password}\n(Poți schimba parola din aplicație: meniul cu numele tău → Schimbă parola.)`;
+    const msg = role === 'dispatch'
+      ? `Bună, ${name}!\nAi primit acces la Rovia Dispecerat – comenzile de livrare ale locațiilor.\nInstalează aplicația RoviaDispecerat.exe și introdu codul de configurare:\n${fb.configCode()}\nE-mail: ${email}\nParolă: ${password}`
+      : `Bună, ${name}!\nAi primit acces la Rovia Controlling.\n${link ? `Deschide: ${link}\n` : `Instalează aplicația Rovia Controlling și introdu codul de configurare:\n${fb.configCode()}\n`}E-mail: ${email}\nParolă: ${password}\n(Poți schimba parola din aplicație: meniul cu numele tău → Schimbă parola.)`;
     modal({ title: 'Utilizator creat', size: 'sm', body: h('div.col', h('div', 'Trimiteți persoanei mesajul de mai jos (conține datele de acces):'), codeBox(msg, 'Copiază mesajul')) });
   }
   async function setActive(u, v) {
@@ -2279,7 +2302,7 @@ async function adminPage(app) {
     h('div.row.wrap', h('div.small.muted.grow', 'Persoanele care văd datele în Rovia Controlling. Administratorii pot adăuga utilizatori și locații.'), btn('Adaugă utilizator', { cls: 'primary', icon: 'plus', onClick: () => userForm() })),
     dataTable([
       { t: 'Nume', k: 'name', f: (u) => h('span', h('b', u.name || '—'), u.uid === app.uid ? h('span.small.muted', ' (dvs.)') : null) }, { t: 'E-mail', k: 'email' },
-      { t: 'Rol', k: 'role', f: (u) => (u.role === 'admin' ? h('span.badge.accent', 'Administrator') : u.role === 'monitor' ? h('span.badge.warn', 'Monitorizare') : u.owner ? h('span.badge.ok', 'Proprietar') : u.write ? h('span.badge.info', 'Controlling · modifică produse') : h('span.badge.info', 'Controlling · doar citire')) },
+      { t: 'Rol', k: 'role', f: (u) => (u.role === 'admin' ? h('span.badge.accent', 'Administrator') : u.role === 'monitor' ? h('span.badge.warn', 'Monitorizare') : u.role === 'dispatch' ? h('span.badge.info', 'Manager livrări (Dispecerat)') : u.owner ? h('span.badge.ok', 'Proprietar') : u.write ? h('span.badge.info', 'Controlling · modifică produse') : h('span.badge.info', 'Controlling · doar citire')) },
       { t: 'Acces', k: 'acc', v: (u) => (u.all || u.role === 'admin' ? 'Toate locațiile' : Object.keys(u.locations || {}).map(locName).join(', ') || 'nicio locație'), wrap: true },
       { t: 'Activ', k: 'active', v: (u) => (u.active === false ? 'nu' : 'da'), f: (u) => { const t = toggle(u.active !== false, (v) => setActive(u, v)); t.addEventListener('click', (e) => e.stopPropagation()); return t; } },
       { t: '', k: 'act', v: () => '', f: (u) => h('div.row.gap-s', btn('', { cls: 'icon sm ghost', icon: 'edit', title: 'Editează', onClick: (e) => { e.stopPropagation(); userForm(u); } }),
@@ -2621,6 +2644,499 @@ const MON_VIEWS = {
 
 return { MON_NAV, MON_VIEWS };
 })();
+// ---- client/js/core/qrcode.js
+__m[13] = (() => {
+// Generator de coduri QR (fără dependențe): mod byte (UTF-8), corecție M, versiunile 1–40, alegerea automată a măștii.
+// qrMatrix(text) → matrice booleană; qrSvg(text, { size, margin }) → SVG.
+
+const EC = [ // [total codewords, ec per block, [nr blocuri, cw date], [nr blocuri, cw date]] – nivel M
+  null,
+  [26, 10, [1, 16]], [44, 16, [1, 28]], [70, 26, [1, 44]], [100, 18, [2, 32]], [134, 24, [2, 43]],
+  [172, 16, [4, 27]], [196, 18, [4, 31]], [242, 22, [2, 38], [2, 39]], [292, 22, [3, 36], [2, 37]], [346, 26, [4, 43], [1, 44]],
+  [404, 30, [1, 50], [4, 51]], [466, 22, [6, 36], [2, 37]], [532, 22, [8, 37], [1, 38]], [581, 24, [4, 40], [5, 41]], [655, 24, [5, 41], [5, 42]],
+  // versiunile 16–40 (texte lungi, ex. linkul aplicației șoferului)
+  [733, 28, [7, 45], [3, 46]], [815, 28, [10, 46], [1, 47]], [901, 26, [9, 43], [4, 44]],
+  [991, 26, [3, 44], [11, 45]], [1085, 26, [3, 41], [13, 42]], [1156, 26, [17, 42]],
+  [1258, 28, [17, 46]], [1364, 28, [4, 47], [14, 48]], [1474, 28, [6, 45], [14, 46]],
+  [1588, 28, [8, 47], [13, 48]], [1706, 28, [19, 46], [4, 47]], [1828, 28, [22, 45], [3, 46]],
+  [1921, 28, [3, 45], [23, 46]], [2051, 28, [21, 45], [7, 46]], [2185, 28, [19, 47], [10, 48]],
+  [2323, 28, [2, 46], [29, 47]], [2465, 28, [10, 46], [23, 47]], [2611, 28, [14, 46], [21, 47]],
+  [2761, 28, [14, 46], [23, 47]], [2876, 28, [12, 47], [26, 48]], [3034, 28, [6, 47], [34, 48]],
+  [3196, 28, [29, 46], [14, 47]], [3362, 28, [13, 46], [32, 47]], [3532, 28, [40, 47], [7, 48]],
+  [3706, 28, [18, 47], [31, 48]],
+];
+const ALIGN = [null, [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34], [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50], [6, 30, 54], [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70],
+  [6, 26, 50, 74], [6, 30, 54, 78], [6, 30, 56, 82], [6, 30, 58, 86], [6, 34, 62, 90], [6, 28, 50, 72, 94], [6, 26, 50, 74, 98], [6, 30, 54, 78, 102], [6, 28, 54, 80, 106], [6, 32, 58, 84, 110], [6, 30, 58, 86, 114], [6, 34, 62, 90, 118], [6, 26, 50, 74, 98, 122], [6, 30, 54, 78, 102, 126], [6, 26, 52, 78, 104, 130], [6, 30, 56, 82, 108, 134], [6, 34, 60, 86, 112, 138], [6, 30, 58, 86, 114, 142], [6, 34, 62, 90, 118, 146], [6, 30, 54, 78, 102, 126, 150], [6, 24, 50, 76, 102, 128, 154], [6, 28, 54, 80, 106, 132, 158], [6, 32, 58, 84, 110, 136, 162], [6, 26, 54, 82, 110, 138, 166], [6, 30, 58, 86, 114, 142, 170]];
+
+// ---- GF(256)
+const EXP = new Array(512); const LOG = new Array(256);
+(() => { let x = 1; for (let i = 0; i < 255; i++) { EXP[i] = x; LOG[x] = i; x <<= 1; if (x & 0x100) x ^= 0x11d; } for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255]; })();
+const mul = (a, b) => (a && b ? EXP[LOG[a] + LOG[b]] : 0);
+function rsGen(n) { let g = [1]; for (let i = 0; i < n; i++) { const ng = new Array(g.length + 1).fill(0); for (let j = 0; j < g.length; j++) { ng[j] ^= g[j]; ng[j + 1] ^= mul(g[j], EXP[i]); } g = ng; } return g; }
+function rsEncode(data, n) {
+  const g = rsGen(n); const res = data.concat(new Array(n).fill(0));
+  for (let i = 0; i < data.length; i++) { const c = res[i]; if (c) for (let j = 0; j < g.length; j++) res[i + j] ^= mul(g[j], c); }
+  return res.slice(data.length);
+}
+
+function utf8(s) { return Array.from(new TextEncoder().encode(s)); }
+function dataCap(v) { const e = EC[v]; return e[2][0] * e[2][1] + (e[3] ? e[3][0] * e[3][1] : 0); }
+
+function encodeData(bytes, v) {
+  const bits = []; const put = (val, len) => { for (let i = len - 1; i >= 0; i--) bits.push((val >> i) & 1); };
+  put(4, 4); put(bytes.length, v < 10 ? 8 : 16); bytes.forEach((b) => put(b, 8));
+  const cap = dataCap(v) * 8;
+  for (let i = 0; i < 4 && bits.length < cap; i++) bits.push(0);
+  while (bits.length % 8) bits.push(0);
+  const out = []; for (let i = 0; i < bits.length; i += 8) out.push(parseInt(bits.slice(i, i + 8).join(''), 2));
+  for (let p = 0; out.length < dataCap(v); p++) out.push(p % 2 ? 0x11 : 0xec);
+  // blocuri + intercalare
+  const e = EC[v]; const blocks = []; let k = 0;
+  for (const grp of [e[2], e[3]]) if (grp) for (let b = 0; b < grp[0]; b++) { blocks.push(out.slice(k, k + grp[1])); k += grp[1]; }
+  const ecs = blocks.map((b) => rsEncode(b, e[1]));
+  const res = []; const maxD = Math.max(...blocks.map((b) => b.length));
+  for (let i = 0; i < maxD; i++) for (const b of blocks) if (i < b.length) res.push(b[i]);
+  for (let i = 0; i < e[1]; i++) for (const c of ecs) res.push(c[i]);
+  return res;
+}
+
+function bch(value, poly, bitsLen) {
+  const deg = (x) => { let d = -1; while (x) { d++; x >>>= 1; } return d; };
+  let v = value << (deg(poly)); while (deg(v) >= deg(poly)) v ^= poly << (deg(v) - deg(poly));
+  return (value << bitsLen) | v;
+}
+
+const MASKS = [
+  (r, c) => (r + c) % 2 === 0, (r) => r % 2 === 0, (r, c) => c % 3 === 0, (r, c) => (r + c) % 3 === 0,
+  (r, c) => (Math.floor(r / 2) + Math.floor(c / 3)) % 2 === 0, (r, c) => ((r * c) % 2) + ((r * c) % 3) === 0,
+  (r, c) => (((r * c) % 2) + ((r * c) % 3)) % 2 === 0, (r, c) => (((r + c) % 2) + ((r * c) % 3)) % 2 === 0,
+];
+
+function build(v, codewords, mask) {
+  const n = v * 4 + 17;
+  const m = Array.from({ length: n }, () => new Array(n).fill(null));
+  const res = Array.from({ length: n }, () => new Array(n).fill(false));
+  const set = (r, c, val) => { m[r][c] = val; res[r][c] = true; };
+  const finder = (r0, c0) => { for (let r = -1; r <= 7; r++) for (let c = -1; c <= 7; c++) { const rr = r0 + r; const cc = c0 + c; if (rr < 0 || cc < 0 || rr >= n || cc >= n) continue; const on = r >= 0 && r <= 6 && c >= 0 && c <= 6 && (r === 0 || r === 6 || c === 0 || c === 6 || (r >= 2 && r <= 4 && c >= 2 && c <= 4)); set(rr, cc, on); } };
+  finder(0, 0); finder(0, n - 7); finder(n - 7, 0);
+  for (let i = 8; i < n - 8; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
+  const al = ALIGN[v]; const last = al.length - 1;
+  for (let i = 0; i < al.length; i++) for (let j = 0; j < al.length; j++) {
+    if ((i === 0 && j === 0) || (i === 0 && j === last) || (i === last && j === 0)) continue; // colțurile cu pătratele de poziție
+    const r = al[i]; const c = al[j];
+    for (let dr = -2; dr <= 2; dr++) for (let dc = -2; dc <= 2; dc++) set(r + dr, c + dc, Math.max(Math.abs(dr), Math.abs(dc)) !== 1);
+  }
+  set(n - 8, 8, true); // modul întunecat
+  // zone rezervate pentru format / versiune
+  for (let i = 0; i < 9; i++) { if (!res[8][i]) set(8, i, false); if (!res[i][8]) set(i, 8, false); }
+  for (let i = 0; i < 8; i++) { if (!res[8][n - 1 - i]) set(8, n - 1 - i, false); if (!res[n - 1 - i][8]) set(n - 1 - i, 8, false); }
+  if (v >= 7) { const vb = bch(v, 0x1f25, 12); for (let i = 0; i < 18; i++) { const bit = ((vb >> i) & 1) === 1; const a = Math.floor(i / 3); const b = (i % 3) + n - 11; set(a, b, bit); set(b, a, bit); } }
+  // datele
+  const bits = []; codewords.forEach((c) => { for (let i = 7; i >= 0; i--) bits.push((c >> i) & 1); });
+  let bi = 0; let up = true;
+  for (let c = n - 1; c > 0; c -= 2) {
+    if (c === 6) c--;
+    for (let k = 0; k < n; k++) {
+      const r = up ? n - 1 - k : k;
+      for (const cc of [c, c - 1]) {
+        if (res[r][cc]) continue;
+        let bit = bi < bits.length ? bits[bi] === 1 : false; bi++;
+        if (MASKS[mask](r, cc)) bit = !bit;
+        m[r][cc] = bit;
+      }
+    }
+    up = !up;
+  }
+  // informația de format (nivel M = 00)
+  const fmt = bch((0 << 3) | mask, 0x537, 10) ^ 0x5412;
+  const fb = (i) => ((fmt >> i) & 1) === 1;
+  for (let i = 0; i <= 5; i++) m[i][8] = fb(i);          // prima copie, lângă colțul stânga-sus
+  m[7][8] = fb(6); m[8][8] = fb(7); m[8][7] = fb(8);
+  for (let i = 9; i < 15; i++) m[8][14 - i] = fb(i);
+  for (let i = 0; i < 8; i++) m[8][n - 1 - i] = fb(i);   // a doua copie
+  for (let i = 8; i < 15; i++) m[n - 15 + i][8] = fb(i);
+  m[n - 8][8] = true;
+  return m;
+}
+
+function penalty(m) {
+  const n = m.length; let p = 0;
+  for (let r = 0; r < n; r++) for (const line of [m[r], m.map((row) => row[r])]) {
+    let run = 1;
+    for (let i = 1; i < n; i++) { if (line[i] === line[i - 1]) { run++; if (run === 5) p += 3; else if (run > 5) p++; } else run = 1; }
+    for (let i = 0; i + 10 < n; i++) {
+      const s = line.slice(i, i + 11).map((x) => (x ? 1 : 0)).join('');
+      if (s === '10111010000' || s === '00001011101') p += 40;
+    }
+  }
+  for (let r = 0; r < n - 1; r++) for (let c = 0; c < n - 1; c++) { const x = m[r][c]; if (x === m[r][c + 1] && x === m[r + 1][c] && x === m[r + 1][c + 1]) p += 3; }
+  let dark = 0; for (const row of m) for (const x of row) if (x) dark++;
+  p += Math.floor(Math.abs((dark * 100) / (n * n) - 50) / 5) * 10;
+  return p;
+}
+
+function qrMatrix(text) {
+  const bytes = utf8(text);
+  let v = 1; while (v <= 40 && dataCap(v) < bytes.length + (v < 10 ? 2 : 3)) v++;
+  if (v > 40) throw new Error(`Textul este prea lung pentru un cod QR (${bytes.length} caractere, maximum ${dataCap(40) - 3})`);
+  const cw = encodeData(bytes, v);
+  let best = null; let bestP = Infinity;
+  for (let mask = 0; mask < 8; mask++) { const m = build(v, cw, mask); const p = penalty(m); if (p < bestP) { bestP = p; best = m; } }
+  return best;
+}
+
+function qrSvg(text, { size = 240, margin = 4, dark = '#000', light = '#fff' } = {}) {
+  const m = qrMatrix(text); const n = m.length; const tot = n + margin * 2;
+  let d = '';
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (m[r][c]) d += `M${c + margin} ${r + margin}h1v1h-1z`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${tot} ${tot}" width="${size}" height="${size}" shape-rendering="crispEdges"><rect width="${tot}" height="${tot}" fill="${light}"/><path d="${d}" fill="${dark}"/></svg>`;
+}
+
+return { dataCap, qrMatrix, qrSvg };
+})();
+// ---- client/controlling/js/dispatch.js
+__m[12] = (() => {
+// Rovia Dispecerat – managerul de livrări central: comenzile de livrare ale TUTUROR locațiilor, într-un singur ecran.
+// Citește tabloul publicat de fiecare server (dsp/{loc}) și trimite acțiunile prin cmd/{loc} (dlv.*); serverul locației le execută.
+// Șoferii comuni (pool/drivers) se creează aici și pot fi alocați pe comenzile oricărei locații.
+const { h, mount, I, btn, money, qty, modal, toast, confirmBox, askText, select, input, field, toggle, beep, fail, hm, num } = __m[1];
+const { qrSvg } = __m[13];
+const fb = __m[3];
+
+const COLS = [['new', 'Noi – de acceptat', 'bell'], ['accepted', 'În preparare', 'chef'], ['ready', 'Gata de plecare', 'bag'], ['out', 'Pe drum', 'send']];
+const PART = { sent: 'se trimite', new: 'de acceptat', accepted: 'în preparare', ready: 'gata', out: 'ridicată', delivered: 'livrată', rejected: 'respinsă', cancelled: 'anulată', returned: 'returnată', failed: 'nelivrată' };
+const BUSY = { free: ['liber', 'ok'], assigned: ['alocat', 'warn'], out: ['pe drum', 'info'] };
+const PALETTE = ['#F59E0B', '#22C55E', '#3B82F6', '#EC4899', '#A855F7', '#14B8A6', '#F97316', '#EAB308'];
+const mins = (t) => (t ? Math.max(0, Math.round((Date.now() - new Date(String(t).replace(' ', 'T')).getTime()) / 60000)) : 0);
+const arr = (x) => (Array.isArray(x) ? x : Object.values(x || {}));
+const LS = 'rovia.dsp.';
+const lsGet = (k, d) => { try { return JSON.parse(localStorage.getItem(LS + k)) ?? d; } catch { return d; } };
+const lsSet = (k, v) => { try { localStorage.setItem(LS + k, JSON.stringify(v)); } catch { /* */ } };
+
+/** Trimite o acțiune la serverul locației și așteaptă rezultatul (sau eroarea) */
+async function sendCmd(loc, op, d, who) {
+  const id = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+  await fb.put(`cmd/${loc}/${id}`, { op, d, by: fb.getSession().uid, name: String(who || '').slice(0, 100), t: { '.sv': 'timestamp' } });
+  return new Promise((resolve, reject) => {
+    let stop = null;
+    const t = setTimeout(() => { stop?.(); reject(new Error('Serverul locației nu a răspuns încă (oprit sau fără internet). Acțiunea se aplică automat când revine.')); }, 25000);
+    stop = fb.stream(`cmd/${loc}/${id}`, (v) => { if (v?.st) { clearTimeout(t); stop(); if (v.st === 'ok') resolve(v.res || {}); else reject(new Error(v.msg || 'Acțiunea nu a reușit')); } });
+  });
+}
+
+// ------------------------------------------------------------------ date comune (tablouri + șoferi comuni)
+function makeStore(locs, stops, onChange) {
+  const st = { boards: {}, pool: {}, color: {} };
+  locs.forEach((l, i) => { st.color[l.id] = PALETTE[i % PALETTE.length]; });
+  let raf = 0; const changed = () => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; onChange(); }); };
+  for (const l of locs) stops.push(fb.stream(`dsp/${l.id}`, (v) => { st.boards[l.id] = v; changed(); }));
+  stops.push(fb.stream('pool/drivers', (v) => { st.pool = v || {}; changed(); }));
+  st.name = (loc) => st.boards[loc]?.n || locs.find((l) => l.id === loc)?.name || 'Locație';
+  // șoferii: cei comuni (o singură intrare, cu situația din toate locațiile) + cei proprii fiecărei locații
+  st.drivers = () => {
+    const out = new Map();
+    for (const [fuid, p] of Object.entries(st.pool)) if (p) out.set(`p_${fuid}`, { key: `p_${fuid}`, pool: true, n: p.n, ph: p.ph || '', a: p.a === true, cur: [], cash: {}, today: 0, busy: 'free' });
+    for (const [loc, b] of Object.entries(st.boards)) {
+      for (const [k, d] of Object.entries(b?.d || {})) {
+        const key = k.startsWith('p_') ? k : `${loc}|${k}`;
+        const x = out.get(key) || { key, pool: k.startsWith('p_'), loc: k.startsWith('p_') ? null : loc, n: d.n, ph: d.ph || '', a: !!d.a, cur: [], cash: {}, today: 0, busy: 'free' };
+        for (const id of arr(d.cur)) { const o = b.o?.[`o${id}`]; x.cur.push({ loc, id, no: o?.no, st: o?.st, z: o?.z, oa: o?.oa }); }
+        if (d.cash > 0) x.cash[loc] = d.cash;
+        x.today += d.today || 0;
+        out.set(key, x);
+      }
+    }
+    for (const x of out.values()) x.busy = x.cur.some((c) => c.st === 'out') ? 'out' : x.cur.length ? 'assigned' : 'free';
+    return [...out.values()].sort((a, b) => (a.a === b.a ? 0 : a.a ? -1 : 1) || (a.busy === 'free' ? 0 : 1) - (b.busy === 'free' ? 0 : 1) || String(a.n).localeCompare(String(b.n), 'ro'));
+  };
+  st.driverOpts = (loc) => st.drivers().filter((x) => x.a && (x.pool || x.loc === loc)).map((x) => [x.pool ? x.key : x.key.split('|')[1],
+    `${x.n}${x.pool ? '' : ' (al locației)'} – ${x.busy === 'free' ? 'liber' : x.busy === 'out' ? 'pe drum' : `${x.cur.length} alocate`}`]);
+  return st;
+}
+
+// ------------------------------------------------------------------ ecranul principal: comenzile tuturor locațiilor
+function dispatchPage({ locs, stops, user }) {
+  const who = user.name || user.email || 'Dispecer';
+  const page = h('div.dl-page.dsp');
+  const head = h('div.dl-head'); const board = h('div.dl-board'); const side = h('div.dl-side');
+  page.append(head, h('div.dl-wrap', board, side));
+  let filter = lsGet('filter', 'all'); let sound = lsGet('sound', true);
+  const pending = new Set();
+  let seenNew = null;
+  const st = makeStore(locs, stops, draw);
+  const tick = setInterval(draw, 30000); stops.push(() => clearInterval(tick));
+
+  async function act(loc, op, d, okMsg) {
+    const k = `${loc}:${d?.id ?? op}`; pending.add(k); draw();
+    try { const r = await sendCmd(loc, op, d, who); if (okMsg) toast(typeof okMsg === 'function' ? okMsg(r) : okMsg, 'ok'); return r; }
+    catch (e) { fail(e); return null; } finally { pending.delete(k); draw(); }
+  }
+  const all = () => Object.entries(st.boards).flatMap(([loc, b]) => Object.values(b?.o || {}).map((o) => ({ ...o, loc })));
+
+  function card(o) {
+    const b = st.boards[o.loc] || {};
+    const busy = pending.has(`${o.loc}:${o.id}`);
+    const late = o.eta && ['accepted', 'ready'].includes(o.st) && new Date(String(o.eta).replace(' ', 'T')) < new Date();
+    const acts = [];
+    const ext = o.g === 'part';
+    if (busy) acts.push(h('span.small.muted', h('span.spinner.sm'), ' se trimite…'));
+    else if (o.st === 'new') acts.push(btn('Acceptă', { cls: 'ok', icon: 'check', onClick: () => acceptDlg(o, b) }), btn('Respinge', { cls: 'danger', icon: 'x', onClick: () => rejectDlg(o) }));
+    else if (['accepted', 'ready'].includes(o.st)) {
+      if (ext) acts.push(h('span.small.bold', I('send'), ` Ridică curierul ${o.cn}`));
+      else if (o.pk) acts.push(h('span.small.muted', 'ridicare personală – se încasează la casă'));
+      else {
+        const sel = select([['', 'Alocă șoferul…'], ...st.driverOpts(o.loc)], o.dk || '');
+        sel.classList.add('dl-assign'); if (!o.dk) sel.classList.add('need');
+        sel.onclick = (e) => e.stopPropagation();
+        sel.onchange = () => { if (sel.value) act(o.loc, 'dlv.assign', { id: o.id, dk: sel.value }); };
+        acts.push(sel, btn('Predă', { cls: o.st === 'ready' ? 'primary' : '', icon: 'send', title: 'Predă șoferului: nota se încasează (bon fiscal) și comanda pleacă', onClick: async () => {
+          const dk = sel.value || o.dk; if (!dk) return fail(new Error('Alegeți întâi șoferul'));
+          if (await confirmBox(`Predați comanda #${o.no} (${st.name(o.loc)})? Nota se încasează acum (${o.pay === 'card' ? 'card' : 'numerar'}, ${money(o.tot)} lei) și se tipărește bonul.`, { ok: 'Predă' })) act(o.loc, 'dlv.dispatch', { id: o.id, dk }, `Comanda #${o.no} a plecat`);
+        } }));
+      }
+      if (o.st === 'accepted') acts.push(btn('Gata', { cls: 'sm', icon: 'check', title: 'Gata de livrare (dacă bucătăria nu a marcat)', onClick: () => act(o.loc, 'dlv.ready', { id: o.id }) }));
+    } else if (o.st === 'out' && !ext) acts.push(btn('Livrată', { cls: 'ok sm', icon: 'check', onClick: () => act(o.loc, 'dlv.delivered', { id: o.id }, `#${o.no} livrată`) }), btn('Nelivrată', { cls: 'danger sm', icon: 'alert', onClick: () => failDlg(o) }));
+    else if (o.st === 'failed') {
+      const sel = select([['', 'Același șofer'], ...st.driverOpts(o.loc)], '');
+      sel.onclick = (e) => e.stopPropagation();
+      acts.push(sel, btn('Retrimite', { cls: 'sm', icon: 'send', onClick: () => act(o.loc, 'dlv.retry', { id: o.id, dk: sel.value || undefined }) }),
+        btn('Returnează', { cls: 'danger sm', icon: 'undo', onClick: async () => { if (await confirmBox(`Returnați comanda #${o.no}? Bonul se stornează (banii nu au fost încasați).`, { danger: true, ok: 'Returnează' })) act(o.loc, 'dlv.return', { id: o.id, r: o.fr }); } }));
+    }
+    return h('div.dl-card', { class: [o.st, late ? 'late' : '', o.src === 'web' ? 'web' : ''].join(' '), style: { borderLeft: `5px solid ${st.color[o.loc]}` }, onclick: () => details(o) },
+      h('div.dl-top', h('span.dsp-loc', { style: { background: st.color[o.loc] } }, st.name(o.loc)), h('b', `#${o.no}`), h('span.badge', { class: o.src === 'web' ? 'accent' : '' }, o.src === 'web' ? 'site' : 'telefon'), o.pk ? h('span.badge.info', 'ridicare') : null,
+        ext ? h('span.badge.warn', `curier ${o.cn}`) : null, arr(o.pt).length ? h('span.badge.info', `+ ${arr(o.pt).length} locații`) : null, h('div.spacer'), h('span.small.muted', `${hm(o.ca)}${o.st !== 'delivered' ? ` · ${mins(o.ca)} min` : ''}`)),
+      h('div.dl-name', h('b', o.n), o.ph ? h('a.dl-tel', { href: `tel:${o.ph}`, onclick: (e) => e.stopPropagation() }, o.ph) : null),
+      o.pk ? null : h('div.dl-addr', o.a, o.z ? h('span.muted', ` · ${o.z}`) : null),
+      o.nt ? h('div.dl-notes', `» ${o.nt}`) : null,
+      arr(o.pt).length ? h('div.dl-parts', h('div.xs.muted', 'Curierul ridică și de la:'), arr(o.pt).map((p) => h('div.dl-part', { class: p.st }, h('b', p.n), h('span.badge', p.pk ? 'ridicată' : PART[p.st] || p.st)))) : null,
+      h('div.dl-items', arr(o.it).slice(0, 6).map((x) => h('div', x)), arr(o.it).length > 6 ? h('div.muted', `… încă ${arr(o.it).length - 6}`) : null),
+      o.st === 'accepted' && o.kr < 1 ? h('div.dl-prog', h('i', { style: { width: `${Math.round((o.kr || 0) * 100)}%` } })) : null,
+      h('div.dl-tot', h('b', `${money(o.tot)} lei`), h('span', o.pay === 'card' ? 'card la livrare' : `numerar${o.ch ? ` · are ${money(o.ch)}` : ''}`)),
+      h('div.dl-meta', o.eta && !['delivered', 'out'].includes(o.st) ? h('span', { class: late ? 'danger-t bold' : '' }, I('clock'), ` gata la ${hm(o.eta)}`) : null,
+        o.dn ? h('span', I('user'), ` ${o.dn}`) : null, o.oa && o.st === 'out' ? h('span', `plecată ${hm(o.oa)} (${mins(o.oa)} min)`) : null,
+        o.fr ? h('span.danger-t', `Problemă: ${o.fr}`) : null, o.rr ? h('span.danger-t', o.rr) : null),
+      acts.length ? h('div.dl-acts', { onclick: (e) => e.stopPropagation() }, acts) : null);
+  }
+
+  function draw() {
+    // capul: locațiile (deschis / închis, câte comenzi), filtrul, comanda telefonică, sunetul
+    const L = locs.map((l) => ({ ...l, b: st.boards[l.id] }));
+    mount(head, h('div.row.wrap.gap-s', { style: { alignItems: 'center' } },
+      btn('Comandă telefonică', { cls: 'primary', icon: 'plus', onClick: () => phoneOrder() }),
+      h('div.dsp-locs', h('button.chip', { class: filter === 'all' ? 'active' : '', onclick: () => { filter = 'all'; lsSet('filter', filter); draw(); } }, `Toate (${all().filter((o) => o.st !== 'delivered').length})`),
+        L.map((l) => {
+          const n = Object.values(l.b?.o || {}).filter((o) => o.st !== 'delivered').length;
+          const tg = l.b?.en ? toggle(l.b.open !== false, async (v) => { const r = await act(l.id, 'dlv.open', { open: v }, v ? `${st.name(l.id)}: primim comenzi online` : `${st.name(l.id)}: comenzile online sunt oprite`); if (!r) draw(); }) : null;
+          if (tg) tg.addEventListener('click', (e) => e.stopPropagation());
+          return h('div.dsp-locchip', { class: filter === l.id ? 'active' : '', style: { '--c': st.color[l.id] }, onclick: () => { filter = l.id; lsSet('filter', filter); draw(); } },
+            h('span.dot'), h('b', st.name(l.id)), h('span.muted', l.b ? (l.b.en ? (l.b.on ? `${n} comenzi` : `închis${l.b.why ? ` – ${l.b.why}` : ''}`) : 'livrări oprite') : 'fără date (server oprit sau versiune veche)'), tg);
+        })),
+      h('div.spacer'), h('label.check.small', toggle(sound, (v) => { sound = v; lsSet('sound', v); if (v) beep('new'); }), 'Sunet')));
+    // comenzile
+    const rows = all().filter((o) => filter === 'all' || o.loc === filter).sort((a, b) => String(a.ca).localeCompare(String(b.ca)));
+    const newOnes = new Set(all().filter((o) => o.st === 'new').map((o) => `${o.loc}:${o.id}`));
+    if (seenNew && [...newOnes].some((k) => !seenNew.has(k))) { if (sound) beep('new'); toast('Comandă nouă de livrat', 'info'); }
+    seenNew = newOnes;
+    document.title = newOnes.size ? `(${newOnes.size}) Rovia Dispecerat` : 'Rovia Dispecerat';
+    const recent = rows.filter((o) => o.st === 'delivered');
+    mount(board, h('div.dl-cols', COLS.map(([s, title, ic]) => {
+      const list = rows.filter((o) => o.st === s || (s === 'out' && o.st === 'failed'));
+      return h('div.dl-col', { class: s }, h('div.dl-col-h', I(ic), h('b', title), h('span.badge', list.length)), list.length ? list.map(card) : h('div.muted.small.dl-empty', s === 'new' ? 'Nicio comandă nouă' : '—'));
+    })), recent.length ? h('div.dl-recent', h('div.section-title', 'Livrate recent'), h('div.dl-hist', recent.reverse().map(card))) : null);
+    // șoferii
+    const D = st.drivers().filter((x) => x.a || x.cur.length || Object.keys(x.cash).length);
+    const waiting = rows.filter((o) => ['accepted', 'ready'].includes(o.st) && !o.pk && o.g !== 'part' && !o.dk).length;
+    mount(side, h('div.row.between', h('div.section-title', 'Șoferi'), h('span.small.muted', `${D.filter((x) => x.a && x.busy === 'free').length} liberi`)),
+      waiting ? h('div.dl-warn', I('alert'), `${waiting} ${waiting === 1 ? 'comandă fără șofer' : 'comenzi fără șofer'}`) : null,
+      D.length ? D.map((x) => {
+        const cash = Object.entries(x.cash); const tot = cash.reduce((a, [, v]) => a + v, 0);
+        return h('div.dl-drv', { class: [x.a ? '' : 'off', x.busy].join(' ') },
+          h('div.dl-drv-h', h('b.grow', x.n), h('span.badge', { class: BUSY[x.busy]?.[1] || '' }, BUSY[x.busy]?.[0] || ''), x.pool ? h('span.badge.info', { title: 'Șofer comun – livrează pentru orice locație' }, 'comun') : h('span.badge', st.name(x.loc))),
+          x.cur.length ? h('div.dl-drv-list', x.cur.map((c) => h('button.chip', { onclick: () => { const o = all().find((y) => y.loc === c.loc && y.id === c.id); if (o) details(o); } },
+            h('span.dsp-dot', { style: { background: st.color[c.loc] } }), `#${c.no ?? c.id}`, h('span.muted', ` ${c.st === 'out' ? `pe drum ${mins(c.oa)} min` : c.st === 'failed' ? 'problemă' : c.st === 'ready' ? 'gata – de ridicat' : 'în preparare'}`)))) : null,
+          h('div.small.muted', `${x.today} livrate azi${x.ph ? ` · ${x.ph}` : ''}`),
+          tot > 0 ? h('div.dl-drv-cash', h('span.warn-t.bold', `De predat: ${money(tot)} lei`), btn('Decontează', { cls: 'sm', icon: 'cash', onClick: () => settle(x, cash) }),
+            cash.length > 1 ? h('div.xs.muted', { style: { flexBasis: '100%' } }, cash.map(([l, v]) => `${st.name(l)}: ${money(v)}`).join(' · ')) : null) : h('div.small.muted', 'Nimic de predat'));
+      }) : h('div.small.muted', 'Niciun șofer. Adăugați șoferi comuni în „Șoferi”, sau șoferi proprii în fiecare locație (Rovia POS → Utilizatori).'));
+  }
+
+  async function acceptDlg(o, b) {
+    const opts = arr(b.eta).length ? arr(b.eta) : [20, 30, 45, 60, 90];
+    const m = await modal({ title: `Acceptă #${o.no} · ${st.name(o.loc)}`, size: 'sm', body: (close) => h('div.col', h('div', `${o.n} · ${o.pk ? 'ridicare personală' : o.a}`), h('div.small.muted', 'În cât timp este gata / livrată? Clientul vede ora pe site.'),
+      h('div.dl-eta', opts.map((x) => h('button.btn.lg', { type: 'button', onclick: () => close(x) }, `${x} min`)))), buttons: [{ label: 'Renunță', cls: 'ghost', value: null }] }).result;
+    if (m) act(o.loc, 'dlv.accept', { id: o.id, eta: m }, `#${o.no} acceptată – ${m} min`);
+  }
+  async function rejectDlg(o) {
+    const r = await askText({ title: `Respinge #${o.no} · ${st.name(o.loc)}`, label: 'Motivul (îl vede clientul)', chips: ['Bucătăria este plină', 'Produs indisponibil', 'Nu livrăm la această adresă', 'Comandă suspectă'], required: true });
+    if (r) act(o.loc, 'dlv.reject', { id: o.id, r }, `#${o.no} respinsă`);
+  }
+  async function failDlg(o) {
+    const r = await askText({ title: `Nelivrată: #${o.no}`, label: 'Ce s-a întâmplat?', chips: ['Clientul nu răspunde', 'Adresă greșită', 'Clientul a refuzat comanda', 'Accident / defecțiune'], required: true });
+    if (r) act(o.loc, 'dlv.failed', { id: o.id, r });
+  }
+  async function settle(x, cash) {
+    const tot = cash.reduce((a, [, v]) => a + v, 0);
+    if (!(await confirmBox(`${x.n} predă ${money(tot)} lei numerar${cash.length > 1 ? ` (${cash.map(([l, v]) => `${st.name(l)} ${money(v)}`).join(', ')})` : ''}?`, { ok: 'Am primit banii' }))) return;
+    for (const [loc] of cash) await act(loc, 'dlv.settle', { dk: x.pool ? x.key : x.key.split('|')[1] }, (r) => `Decontat la ${st.name(loc)}: ${money(r.cash)} lei`);
+  }
+  function details(o) {
+    modal({ title: `#${o.no} · ${st.name(o.loc)}`, size: 'md', body: h('div.col',
+      h('div.receipt-head', h('div', h('div.muted.small', 'Client'), h('b', o.n)), h('div', h('div.muted.small', 'Telefon'), o.ph ? h('a', { href: `tel:${o.ph}` }, o.ph) : '—'), h('div', h('div.muted.small', o.pk ? 'Ridicare' : 'Adresă'), h('b', o.pk ? 'personală' : o.a || '—')),
+        h('div', h('div.muted.small', 'Plată'), h('b', o.pay === 'card' ? 'card la livrare' : 'numerar')), h('div', h('div.muted.small', 'Primită'), h('b', hm(o.ca))), h('div', h('div.muted.small', 'Șofer'), h('b', o.dn || '—'))),
+      o.nt ? h('div.card.small', `Observații: ${o.nt}`) : null,
+      o.g === 'part' ? h('div.card.small', `Comandă comună: o ridică și o livrează curierul locației ${o.cn}.`) : null,
+      arr(o.pt).length ? h('div.card.small', h('b', 'Curierul ridică și de la: '), arr(o.pt).map((p) => `${p.n} (${p.pk ? 'ridicată' : PART[p.st] || p.st})`).join(', ')) : null,
+      h('div.col.gap-s', arr(o.it).map((x) => h('div', x))),
+      h('div.row.between.big', h('b', 'TOTAL'), h('b', `${money(o.tot)} lei`))),
+    buttons: [{ label: 'Închide', cls: 'ghost' }] });
+  }
+
+  // ---------------------------------------------------------------- comandă telefonică (pentru orice locație)
+  async function phoneOrder() {
+    const L = locs.filter((l) => st.boards[l.id]?.en);
+    if (!L.length) return fail(new Error('Nicio locație nu are livrările pornite.'));
+    let loc = filter !== 'all' && st.boards[filter]?.en ? filter : L[0].id; let shop = null; const lines = []; let pickup = false;
+    const locSel = select(L.map((l) => [l.id, st.name(l.id)]), loc);
+    const name = input({ placeholder: 'Nume client' }); const phone = input({ placeholder: '07xx xxx xxx', inputmode: 'tel' });
+    const addr = input({ placeholder: 'Stradă, număr, bloc, apartament' }); const notes = input({ placeholder: 'ex. interfon 12, etaj 3' });
+    const pay = select([['cash', 'Numerar la livrare'], ['card', 'Card la livrare']], 'cash'); const chg = input({ inputmode: 'decimal', placeholder: 'ex. 200' });
+    const zoneBox = h('div'); const etaBox = h('div'); const prodBox = h('div.dsp-prods'); const cartBox = h('div.dsp-cart'); const search = input({ placeholder: 'Caută produsul…' });
+    const addrBox = h('div.col', field('Adresă de livrare', addr), zoneBox);
+    let zone = null; let eta = null;
+    const loadShop = async () => {
+      mount(prodBox, h('div.spinner'));
+      try { shop = await fb.get(`pub/${loc}/shop`); } catch { shop = null; }
+      if (shop) { shop.items = arr(shop.items); for (const g of Object.values(shop.g || {})) g.o = arr(g.o); for (const i of shop.items) if (i.m) i.m = arr(i.m); }
+      const b = st.boards[loc] || {};
+      zone = arr(b.zones).length ? select([['', 'Zona…'], ...arr(b.zones).map((z) => [z.id, `${z.n} – taxă ${money(z.fee)} lei`])], '') : null;
+      mount(zoneBox, zone ? field('Zonă', zone) : null);
+      eta = select(arr(b.eta).map((x) => [x, `${x} min`]), String(pickup ? b.petaMin : b.etaMin));
+      if (![...eta.options].some((x) => x.selected)) eta.value = String(arr(b.eta)[1] || 30);
+      mount(etaBox, field('Gata / livrată în', eta));
+      drawProds(); drawCart();
+    };
+    const drawProds = () => {
+      if (!shop) return mount(prodBox, h('div.small.danger-t', 'Meniul locației nu este publicat.'));
+      const q = search.value.trim().toLowerCase();
+      const its = shop.items.filter((i) => !i.x && (!q || i.n.toLowerCase().includes(q))).slice(0, 40);
+      mount(prodBox, its.map((i) => h('button.dsp-prod', { type: 'button', onclick: () => addItem(i) }, h('span', i.n), h('b', `${money(i.p)}`), I('plus'))), its.length ? null : h('div.small.muted', 'Niciun produs'));
+    };
+    const linePrice = (l) => { let v = l.i.p; for (const oid of l.m) for (const g of Object.values(shop.g || {})) { const o = g.o.find((x) => x.id === oid); if (o) v += o.p; } return v; };
+    const drawCart = () => {
+      const tot = lines.reduce((a, l) => a + linePrice(l) * l.q, 0);
+      mount(cartBox, lines.length ? [lines.map((l, k) => h('div.dsp-line', h('span.grow', `${l.i.n}${l.m.length ? ` (+ ${l.m.map((oid) => Object.values(shop.g || {}).flatMap((g) => g.o).find((o) => o.id === oid)?.n).filter(Boolean).join(', ')})` : ''}`),
+        h('span.step', btn('', { cls: 'icon sm', icon: 'minus', onClick: () => { l.q -= 1; if (l.q <= 0) lines.splice(k, 1); drawCart(); } }), h('b', l.q), btn('', { cls: 'icon sm', icon: 'plus', onClick: () => { l.q += 1; drawCart(); } })), h('b', money(linePrice(l) * l.q)))),
+        h('div.row.between', h('b', 'Produse'), h('b', `${money(tot)} lei`))] : h('div.small.muted', 'Adăugați produse din listă.'));
+    };
+    const addItem = async (i) => {
+      const gs = arr(i.m).map((gid) => ({ id: gid, ...(shop.g || {})[gid] })).filter((g) => g.o);
+      let mods = [];
+      if (gs.length) {
+        const sel = new Map(gs.map((g) => [g.id, new Set()]));
+        const ok = await modal({ title: i.n, size: 'sm', body: h('div.col', gs.map((g) => h('div.col.gap-s', h('b', `${g.n}${g.mi ? ` (alegeți ${g.mi}${g.ma > g.mi ? `–${g.ma}` : ''})` : ' (opțional)'}`),
+          g.o.filter((o) => !o.x).map((o) => h('label.check', h('input', { type: g.ma === 1 ? 'radio' : 'checkbox', name: `g${g.id}`, onchange: (e) => { const s = sel.get(g.id); if (g.ma === 1) s.clear(); if (e.target.checked) s.add(o.id); else s.delete(o.id); } }), `${o.n}${o.p ? ` +${money(o.p)}` : ''}`))))),
+          buttons: [{ label: 'Renunță', cls: 'ghost', value: null }, { label: 'Adaugă', cls: 'primary', onClick: () => { const bad = gs.find((g) => sel.get(g.id).size < (g.mi || 0) || sel.get(g.id).size > (g.ma || 99)); if (bad) throw new Error(`Alegeți la „${bad.n}”`); return true; } }] }).result;
+        if (!ok) return;
+        mods = gs.flatMap((g) => [...sel.get(g.id)]);
+      }
+      const key = mods.slice().sort().join(',');
+      const ex = lines.find((l) => l.i.id === i.id && l.m.slice().sort().join(',') === key);
+      if (ex) ex.q += 1; else lines.push({ i, m: mods, q: 1 });
+      drawCart();
+    };
+    locSel.onchange = () => { loc = locSel.value; lines.length = 0; loadShop(); };
+    search.oninput = drawProds;
+    const r = await modal({ title: 'Comandă telefonică', size: 'lg', body: h('div.dsp-phone',
+      h('div.col', field('Locația', locSel), h('div.grid2', field('Nume', name), field('Telefon', phone)),
+        h('label.check', toggle(false, (v) => { pickup = v; addrBox.style.display = v ? 'none' : ''; }), 'Ridicare personală (clientul vine după comandă)'),
+        addrBox, h('div.grid2', field('Plată', pay), field('Plătește cu (rest, opțional)', chg)), field('Observații', notes), etaBox),
+      h('div.col', field('Produse', search), prodBox, h('div.section-title', 'Comanda'), cartBox)),
+    buttons: [{ label: 'Renunță', cls: 'ghost', value: null }, { label: 'Trimite comanda', cls: 'primary', icon: 'check', onClick: async () => {
+      if (!lines.length) throw new Error('Adăugați produse');
+      if (!name.value.trim() || phone.value.replace(/\D/g, '').length < 6) throw new Error('Completați numele și telefonul');
+      if (!pickup && !addr.value.trim()) throw new Error('Completați adresa');
+      if (!pickup && zone && !zone.value) throw new Error('Alegeți zona');
+      const res = await sendCmd(loc, 'dlv.phone', { n: name.value.trim(), ph: phone.value.trim(), pk: pickup, a: pickup ? '' : addr.value.trim(), z: zone?.value || '', no: notes.value.trim(), pay: pay.value, ch: num(chg.value) || 0, eta: Number(eta?.value) || 0,
+        i: lines.map((l) => ({ p: l.i.id, q: l.q, ...(l.m.length ? { m: l.m } : {}) })) }, who);
+      return res;
+    } }] });
+    loadShop();
+    const res = await r.result;
+    if (res) toast(`Comanda telefonică #${res.no} trimisă la ${st.name(loc)} (a plecat la bucătărie)`, 'ok');
+  }
+
+  draw();
+  return page;
+}
+
+// ------------------------------------------------------------------ Șoferi comuni: creare, cod / QR, oprire
+const b64 = (s) => btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const rnd = (n) => { const a = new Uint8Array(n); crypto.getRandomValues(a); return Array.from(a, (x) => 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789'[x % 56]).join(''); };
+/** Codul aplicației șoferului (RDR2, ca în Rovia POS), cu locația „_pool” = livrările tuturor locațiilor */
+function driverCode({ email, password, name, firm }) {
+  const c = fb.getConfig();
+  const db = String(c.databaseURL || '').replace(/^https:\/\//, '').replace(/\/+$/, '').replace(/\.firebasedatabase\.app$/, '~');
+  const arr2 = [c.apiKey, db, String(email).replace(/@rovia-sofer\.app$/, '~'), password, '_pool', String(name || '').slice(0, 40), String(firm || 'Livrări').slice(0, 40)];
+  if (c.authUrl) arr2.push(c.authUrl);
+  return 'RDR2.' + b64(JSON.stringify(arr2));
+}
+async function driversPage({ locs, stops, user, go }) {
+  const box = h('div.col.gap');
+  let pool = {}; const boards = {};
+  stops.push(fb.stream('pool/drivers', (v) => { pool = v || {}; draw(); }));
+  for (const l of locs) stops.push(fb.stream(`dsp/${l.id}`, (v) => { boards[l.id] = v; draw(); }));
+  const siteUrl = () => Object.values(boards).map((b) => b?.su).find(Boolean) || '';
+  const firm = () => user.company || 'Livrări';
+  async function create(name, phone, replaces) {
+    const email = `sofer-${rnd(8).toLowerCase()}@rovia-sofer.app`; const password = rnd(16);
+    const acc = await fb.createAccount(email, password);
+    await fb.put(`pool/drivers/${acc.uid}`, { n: name, ph: phone || '', a: true, em: email, at: { '.sv': 'timestamp' } });
+    const code = driverCode({ email, password, name, firm: firm() });
+    await fb.put(`pool/codes/${acc.uid}`, { c: code, at: { '.sv': 'timestamp' } });
+    if (replaces) { await fb.patch(`pool/drivers/${replaces}`, { a: false }); await fb.del(`pool/codes/${replaces}`).catch(() => {}); }
+    return { uid: acc.uid, code };
+  }
+  function showCode(name, code) {
+    const su = siteUrl(); const link = su ? `${su}/sofer/#c=${code}` : '';
+    const q = h('div.qr-box'); q.innerHTML = qrSvg(link || code, { size: 240, margin: 4 });
+    modal({ title: `Aplicația șoferului – ${name}`, size: 'md', body: h('div.col',
+      h('ol.small', { style: { margin: 0, paddingLeft: '18px', lineHeight: 1.7 } },
+        h('li', 'Șoferul instalează RoviaLivrari.apk (sau deschide linkul în Chrome pe telefon).'),
+        h('li', link ? 'Scanează codul QR cu telefonul (se deschide aplicația conectată).' : 'În aplicație lipește codul de mai jos.'),
+        h('li', 'Primește livrările de la toate locațiile, cu adresa de ridicare la fiecare.')),
+      q, link ? h('div.xs.muted', { style: { wordBreak: 'break-all' } }, link) : null, link ? h('div.row.wrap.gap-s', btn('Copiază linkul', { icon: 'copy', onClick: () => navigator.clipboard?.writeText(link).then(() => toast('Copiat', 'ok')) })) : h('div.small.warn-t', 'Adresa site-ului nu este completată în locații (Rovia POS → Setări → Livrări & site) – folosiți codul.'),
+      h('textarea.input.code', { rows: 3, readonly: true }, code), btn('Copiază codul', { cls: 'sm', icon: 'copy', onClick: () => navigator.clipboard?.writeText(code).then(() => toast('Copiat', 'ok')) }),
+      h('div.small.warn-t', 'Codul conține parola contului șoferului – trimiteți-l doar lui, nu pe grupuri.')) });
+  }
+  function status(fuid) {
+    let cur = 0; let out = false; let cash = 0;
+    for (const b of Object.values(boards)) { const d = b?.d?.[`p_${fuid}`]; if (!d) continue; cur += arr(d.cur).length; if (d.busy === 'out') out = true; cash += d.cash || 0; }
+    return { cur, out, cash };
+  }
+  function draw() {
+    const list = Object.entries(pool).filter(([, p]) => p).sort((a, b) => (a[1].a === b[1].a ? 0 : a[1].a ? -1 : 1) || String(a[1].n).localeCompare(String(b[1].n), 'ro'));
+    mount(box,
+      h('div.row.wrap', h('div.small.muted.grow', 'Șoferii comuni livrează pentru orice locație: îi alocați din Livrări (sau din Rovia POS al oricărei locații). Fiecare locație îi preia automat. Șoferii proprii ai unei locații se fac în Rovia POS → Utilizatori.'),
+        btn('Adaugă șofer', { cls: 'primary', icon: 'plus', onClick: async () => {
+          const name = input({ placeholder: 'Nume și prenume', autofocus: true }); const phone = input({ placeholder: '07xx xxx xxx', inputmode: 'tel' });
+          const r = await modal({ title: 'Șofer comun nou', size: 'sm', body: h('div.col', field('Nume', name), field('Telefon', phone)), buttons: [{ label: 'Renunță', cls: 'ghost', value: null }, { label: 'Creează', cls: 'primary', icon: 'check', onClick: async () => { if (!name.value.trim()) throw new Error('Completați numele'); return create(name.value.trim().slice(0, 80), phone.value.replace(/[^\d+]/g, '').slice(0, 20)); } }] }).result;
+          if (r) showCode(name.value.trim(), r.code);
+        } })),
+      list.length ? h('div.panel.pad', h('table.tbl', h('thead', h('tr', ['Șofer', 'Telefon', 'Acum', 'De predat', 'Activ', ''].map((t) => h('th', t)))),
+        h('tbody', list.map(([fuid, p]) => { const s = status(fuid);
+          const t = toggle(p.a === true, async (v) => { try { await fb.patch(`pool/drivers/${fuid}`, { a: v }); toast(v ? 'Șofer activat' : 'Șofer oprit (nu mai vede livrările)', 'ok'); } catch (e) { fail(e); } });
+          return h('tr', { class: p.a ? '' : 'muted' }, h('td', h('b', p.n)), h('td', p.ph || '—'), h('td', s.out ? h('span.badge.info', 'pe drum') : s.cur ? h('span.badge.warn', `${s.cur} alocate`) : h('span.badge.ok', 'liber')),
+            h('td', s.cash ? `${money(s.cash)} lei` : '—'), h('td', t),
+            h('td', h('div.row.gap-s', btn('Cod / QR', { cls: 'sm', icon: 'send', onClick: async () => { const c = await fb.get(`pool/codes/${fuid}`).catch(() => null); if (c?.c) showCode(p.n, c.c); else toast('Codul nu mai există – generați unul nou', 'warn'); } }),
+              btn('Cod nou', { cls: 'sm', icon: 'refresh', title: 'Telefon pierdut / schimbat: telefonul vechi se deconectează', onClick: async () => { if (!(await confirmBox(`Cod nou pentru ${p.n}? Telefonul vechi se deconectează. Livrările în curs rămân pe contul vechi (finalizați-le întâi).`, { ok: 'Cod nou' }))) return; try { const r = await create(p.n, p.ph, fuid); showCode(p.n, r.code); } catch (e) { fail(e); } } }))));
+        })))) : h('div.panel.pad.empty', I('user'), h('div', 'Niciun șofer comun încă. Apăsați „Adaugă șofer”.')));
+  }
+  draw();
+  return box;
+}
+
+return { sendCmd, dispatchPage, driversPage };
+})();
 // ---- client/controlling/js/app.js
 __m[0] = (() => {
 // Rovia Controlling – aplicația echipei de controlling: toate locațiile, datele fiecărei locații; citire + modificarea produselor (utilizatori cu drept „write”).
@@ -2636,15 +3152,18 @@ const { adminPage, changePasswordDialog, copyText } = __m[8];
 const { RULES } = __m[9];
 const { monitorPage } = __m[10];
 const { MON_NAV, MON_VIEWS } = __m[11];
+const { dispatchPage, driversPage } = __m[12];
 
 const VERSION = window.ROVIA_VERSION || 'dev';
 // Rovia Proprietar (window.ROVIA_APP = 'owner'): pagina web a proprietarilor – toate locațiile lor în timp real, doar citire
-const APP = window.ROVIA_APP === 'monitor' || /[?&]app=monitor/.test(location.search) ? 'monitor' : window.ROVIA_APP === 'owner' || /[?&]app=owner/.test(location.search) ? 'owner' : 'controlling';
-const APP_NAME = APP === 'monitor' ? 'Rovia Monitor' : APP === 'owner' ? 'Rovia Proprietar' : 'Rovia Controlling';
+// Rovia Dispecerat (window.ROVIA_APP = 'dispatch'): managerul de livrări central – comenzile tuturor locațiilor, șoferi comuni
+const APP = window.ROVIA_APP === 'monitor' || /[?&]app=monitor/.test(location.search) ? 'monitor' : window.ROVIA_APP === 'owner' || /[?&]app=owner/.test(location.search) ? 'owner' : window.ROVIA_APP === 'dispatch' || /[?&]app=dispatch/.test(location.search) ? 'dispatch' : 'controlling';
+const APP_NAME = APP === 'monitor' ? 'Rovia Monitor' : APP === 'owner' ? 'Rovia Proprietar' : APP === 'dispatch' ? 'Rovia Dispecerat' : 'Rovia Controlling';
+const DSP = APP === 'dispatch';
 const OWNER = APP === 'owner';
 const root = document.getElementById('root');
 const LS_BRAND = 'rovia.ctl.brand';
-const LS_PERIOD = APP === 'monitor' ? 'rovia.mon.period' : OWNER ? 'rovia.own.period' : 'rovia.ctl.period';
+const LS_PERIOD = APP === 'monitor' ? 'rovia.mon.period' : OWNER ? 'rovia.own.period' : DSP ? 'rovia.dsp.period' : 'rovia.ctl.period';
 const DEFAULT_LOGO = window.ROVIA_LOGO || '../assets/logo.svg';
 const DEFAULT_ICON = window.ROVIA_ICON || '../assets/icon.svg';
 const S = { user: null, uid: null, locs: [], meta: {}, from: '', to: '', preset: '7', shell: null, stops: [], adminTab: null };
@@ -2733,8 +3252,8 @@ function loginScreen(msg, mode = 'login') {
   };
   [email, pass].forEach((x) => x.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); }));
   mount(root, card(
-    h('h2', mode === 'first' ? 'Cont de administrator' : APP === 'monitor' ? 'Monitorizare' : OWNER ? 'Proprietar' : 'Controlling'),
-    h('div.sub', mode === 'first' ? 'Primul cont creat în acest proiect devine administrator.' : APP === 'monitor' ? 'Note deschise, marcări și anulări în timp real, rapoarte de vânzări' : 'Vânzări, rapoarte și stocuri din toate locațiile'),
+    h('h2', mode === 'first' ? 'Cont de administrator' : APP === 'monitor' ? 'Monitorizare' : OWNER ? 'Proprietar' : DSP ? 'Dispecerat livrări' : 'Controlling'),
+    h('div.sub', mode === 'first' ? 'Primul cont creat în acest proiect devine administrator.' : APP === 'monitor' ? 'Note deschise, marcări și anulări în timp real, rapoarte de vânzări' : DSP ? 'Comenzile de livrare ale tuturor locațiilor, șoferii, comenzi telefonice' : 'Vânzări, rapoarte și stocuri din toate locațiile'),
     mode === 'first' ? name : null, email, pass, err,
     btn(mode === 'first' ? 'Creează contul' : 'Intră', { cls: 'primary lg block', icon: mode === 'first' ? 'shield' : 'lock', onClick: go }),
     h('div.row.between.small',
@@ -2760,11 +3279,14 @@ async function start() {
   if (user.role === 'location') { fb.signOut(); return loginScreen('Acesta este contul unei locații (pentru serverul Rovia POS), nu un cont de controlling.'); }
   // aplicații separate: contul de monitorizare video intră doar în Rovia Monitor
   if (APP !== 'monitor' && user.role === 'monitor') { fb.signOut(); return loginScreen('Acest cont este pentru monitorizarea video – folosiți aplicația Rovia Monitor (RoviaMonitor.exe).'); }
+  if (!DSP && user.role === 'dispatch') { fb.signOut(); return loginScreen('Acest cont este pentru managerul de livrări – folosiți aplicația Rovia Dispecerat (RoviaDispecerat.exe).'); }
+  if (DSP && !['dispatch', 'admin'].includes(user.role)) { fb.signOut(); return loginScreen('Rovia Dispecerat este pentru managerul de livrări. Administratorul vă dă acces în Rovia Controlling → Administrare → Utilizatori (rolul „Manager livrări”).'); }
   S.user = user; S.uid = uid;
   await loadLocations();
   syncBrand();
   buildShell();
   if (APP === 'monitor' && !/^#\/(monitor|r\/)/.test(location.hash)) location.hash = '#/monitor';
+  if (DSP && !/^#\/(livrari|soferi)/.test(location.hash)) location.hash = '#/livrari';
   if (OWNER && S.locs.length === 1 && !/^#\/l\//.test(location.hash)) location.hash = `#/l/${S.locs[0].id}/dashboard`; // un singur restaurant: direct la vânzările de azi (în timp real)
   route();
 }
@@ -2783,13 +3305,13 @@ function buildShell() {
   const el = h('div.shell',
     h('aside.rail', h('div.brand', h('img', { src: lsGet(LS_BRAND)?.logo || DEFAULT_ICON, alt: 'Rovia' })), nav,
       h('div.foot', h('a.nav-item', { href: '#', onclick: (e) => { e.preventDefault(); logout(); } }, I('logout'), 'Ieșire'))),
-    h('div.main', h('header.topbar', title, crumb, h('div.spacer'), locSel, h('span.badge.info.ro', I(APP !== 'monitor' && canWrite() ? 'edit' : 'eye'), APP === 'monitor' ? ' monitorizare' : OWNER ? ' proprietar' : canWrite() ? ' citire și modificare' : ' doar citire'), userBtn), toolbar, view));
+    h('div.main', h('header.topbar', title, crumb, h('div.spacer'), locSel, h('span.badge.info.ro', I(DSP ? 'bag' : APP !== 'monitor' && canWrite() ? 'edit' : 'eye'), DSP ? ' dispecerat livrări' : APP === 'monitor' ? ' monitorizare' : OWNER ? ' proprietar' : canWrite() ? ' citire și modificare' : ' doar citire'), userBtn), toolbar, view));
   S.shell = { el, nav, title, crumb, view, toolbar, locSel };
   mount(root, el);
 }
 function userMenu() {
   modal({ title: S.user.name || 'Cont', size: 'sm', body: h('div.col',
-    kv2([['E-mail', fb.getSession()?.email], ['Rol', S.user.role === 'admin' ? 'Administrator' : S.user.role === 'monitor' ? 'Monitorizare video' : S.user.owner ? 'Proprietar' : 'Controlling'], ['Aplicație', APP_NAME], ['Acces', S.user.role === 'admin' || S.user.all ? 'toate locațiile' : `${S.locs.length} locații`], ['Versiune aplicație', VERSION]]),
+    kv2([['E-mail', fb.getSession()?.email], ['Rol', S.user.role === 'admin' ? 'Administrator' : S.user.role === 'monitor' ? 'Monitorizare video' : S.user.role === 'dispatch' ? 'Manager livrări' : S.user.owner ? 'Proprietar' : 'Controlling'], ['Aplicație', APP_NAME], ['Acces', S.user.role === 'admin' || S.user.all ? 'toate locațiile' : `${S.locs.length} locații`], ['Versiune aplicație', VERSION]]),
     h('div.row.wrap', btn('Schimbă parola', { icon: 'lock', onClick: changePasswordDialog }), btn('Ieșire', { cls: 'danger', icon: 'logout', onClick: () => { document.querySelector('.modal-back')?.remove(); logout(); } }))) });
 }
 function kv2(pairs) { return h('div.kv', pairs.map(([k, v]) => [h('span', k), h('span', v || '—')])); }
@@ -2816,7 +3338,14 @@ async function route(opts) {
   const parts = (location.hash || '#/').replace(/^#\/?/, '').split('/');
   const sh = S.shell; const my = ++seq;
   let page; let title; let crumb = ''; let nav; let showTb = false;
-  if (APP === 'monitor') {
+  if (DSP) {
+    // Rovia Dispecerat: #/livrari (toate comenzile) și #/soferi (șoferii comuni)
+    const v = parts[0] === 'soferi' ? 'soferi' : 'livrari';
+    if (parts[0] !== v) { location.hash = '#/livrari'; return; }
+    nav = mainNav(v); mount(sh.locSel);
+    if (v === 'soferi') { title = 'Șoferi comuni'; crumb = 'livrează pentru toate locațiile'; page = () => driversPage({ locs: S.locs, stops: S.stops, user: S.user }); }
+    else { title = 'Livrări'; crumb = `${S.locs.length} ${S.locs.length === 1 ? 'locație' : 'locații'} · în timp real`; page = () => dispatchPage({ locs: S.locs, stops: S.stops, user: S.user }); }
+  } else if (APP === 'monitor') {
     // Rovia Monitor: #/monitor (timp real) și #/r/{locație}/{raport}
     if (parts[0] === 'r' && S.meta[parts[1]]) {
       const loc = parts[1]; const m = S.meta[loc]; const v = MON_VIEWS[parts[2]] ? parts[2] : 'days';
@@ -2891,6 +3420,7 @@ function remoteNav(loc, my) {
 /** Dreptul de a modifica produsele din Controlling: administratorul sau utilizatorul cu „write” */
 function canWrite() { return APP === 'controlling' && (S.user?.role === 'admin' || (S.user?.role === 'controller' && S.user?.write === true)); }
 function mainNav(active) {
+  if (DSP) return [['livrari', '#/livrari', 'Livrări', 'bag'], ['soferi', '#/soferi', 'Șoferi', 'user']].map(([id, href, n, ic]) => h('a.nav-item', { href, class: id === active ? 'active' : '' }, I(ic), n));
   if (APP === 'monitor') {
     const first = S.locs[0]?.id;
     return [h('a.nav-item', { href: '#/monitor', class: active === 'monitor' ? 'active' : '' }, I('eye'), 'Timp real'),
